@@ -1,7 +1,21 @@
-<!DOCTYPE>
+<!DOCTYPE html>
 <html>
-  <meta charset="UTF-8">
-<table id="tableau1">
+<head>
+   <meta charset="UTF-8">
+    <styletype="text/css">
+    #tableau1
+    {
+    border-collapse: collapse;
+    }
+    #tableau1 td
+    {
+    border: 1px solid black
+    }
+    </style>
+</head>
+
+<body>
+<tableau id="tableau1">
   <tr>
     <td>{caseA1}</td>
     <td>{caseA2}</td>
@@ -123,4 +137,6 @@
     <td>{caseJ10}</td>
   </tr>
 </table>
+</body>
+</html>
 
