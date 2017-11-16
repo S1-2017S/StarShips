@@ -2,6 +2,15 @@
 <html>
   <meta charset="UTF-8">
 <table id="tableau1">
+<styletype="text/css">
+  #table1
+  {
+	  border-collapse: collapse;
+  }
+  #table1 td
+  {
+		border: 1px solid black
+  }
   <tr>
     <td>{caseA1}</td>
     <td>{caseA2}</td>
