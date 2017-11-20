@@ -54,7 +54,7 @@ var trait = function (req, res, query) {
 	} else {
 		// SI IDENTIFICATION OK, ON ENVOIE PAGE ACCUEIL MEMBRE
 
-		page = fs.readFileSync('../html/modele_accueil_membre.html', 'UTF-8');
+		page = fs.readFileSync('../html/placement.html', 'UTF-8');
 
 		marqueurs = {};
 		marqueurs.pseudo = query.pseudo;
