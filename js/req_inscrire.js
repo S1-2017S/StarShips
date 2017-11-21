@@ -14,6 +14,8 @@ var trait = function (req, res, query) {
 	var marqueurs;
 	var pseudo;
 	var password;
+	var taille_psd;
+	var taille_mdp;
 	var page;
 	var nouveauMembre;
 	var contenu_fichier;
@@ -43,6 +45,8 @@ var trait = function (req, res, query) {
 		nouveauMembre = {};
 		nouveauMembre.pseudo = query.pseudo;
 		nouveauMembre.password = query.password;
+		taille_psd = nouveauMembre.pseudo.length;
+		taille_mdp = nouveauMembre.password.length;
 		listeMembres[listeMembres.length] = nouveauMembre;
 
 		contenu_fichier = JSON.stringify(listeMembres);
@@ -63,7 +67,17 @@ var trait = function (req, res, query) {
 		marqueurs.pseudo = query.pseudo;
 		page = page.supplant(marqueurs);
 
-	} else {
+	} else if(taille_psd < 4) {
+		page = fs.readFileSync("../html/modele_formulaire_inscription.html", 'utf-8');
+		marqueurs = {};
+		marqueurs.erreur = "ERREUR : Veuillez entrez un pseudo qui contient au moins 4 caractères";
+		page = page.supplant(marqueurs);
+		
+	} else if(taille_mdp < 4){
+		page = fs.readFileSync("../html/modele_formulaire_inscription.html", 'utf-8');
+		marqueurs = {};
+		marqueurs.erreur = "ERREUR : Veuillez entrez un mot de passe qui contient au moins 4 caractères";
+	} else	{
 		// SI CREATION OK, ON ENVOIE PAGE DE CONFIRMATION
 
 		page = fs.readFileSync('../html/modele_confirmation_inscription.html', 'UTF-8');
