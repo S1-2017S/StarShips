@@ -77,6 +77,7 @@ var trait = function (req, res, query) {
 		page = fs.readFileSync("../html/modele_formulaire_inscription.html", 'utf-8');
 		marqueurs = {};
 		marqueurs.erreur = "ERREUR : Veuillez entrez un mot de passe qui contient au moins 4 caractères";
+		page = page.supplant(marqueurs);
 	} else	{
 		// SI CREATION OK, ON ENVOIE PAGE DE CONFIRMATION
 

@@ -6,10 +6,12 @@
 #tableau1
 {
 	border-collapse: collapse;
+margin : auto;
+color : purple;
 }
 #tableau1 td
 {
-border: 1px solid black;
+border: 1px solid grey;
 width:80px;
 height:80px;
 }
@@ -20,27 +22,38 @@ height:80px;
 <style type = "text/css">
 body {
 color : black;
-background-color : white;
-background-image : url(../img/bg.jpg);
-background-repeat: no-repeat;
+		background-color : white;
+		background-image : url(../img/bg.jpg);
+		background-repeat: no-repeat;
 }
 h2 {
 	text-align : center;
 	font-family : Verdana,Geneva,sans-serif;
-	color : grey;
+color : grey;
 }
 h1 {
 	text-align : center;
 	font-family : Verdana,Geneva,sans-serif;
-	color : grey;
+color : grey;
 }
 
+em {
+color : purple;
+}
+
+div {
+position:absolute;
+right:0;
+top:0;
+	margin-top:80px;
+	margin-right:100px;a
+}
 
 </style>
 
 <h1>Page de placement</h1>
 
-<h2>Vous êtes <em>{pseudo}</em></h2>
+<h2>Bienvenue <em>{pseudo}</em> ! </h2>
 <table id="tableau1">
 <tr>
 <td>{caseA1}</td>
@@ -163,7 +176,10 @@ h1 {
 <td>{caseJ10}</td>
 </tr>
 </table>
-<button name = "bouton_partie" value= "jouer">JOUER</button>
-
+<div>
+<form action="/req_jouer" method="GET">
+<input type = "submit"  value= "JOUER">
+</form>
+</div>
 </body>
 </html>
