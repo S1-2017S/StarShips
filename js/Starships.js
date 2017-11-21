@@ -9,6 +9,7 @@
 var http = require("http");
 var url = require("url");
 var querystring = require("querystring");
+var fs = require("fs");
 
 //-------------------------------------------------------------------------
 // DECLARATION DES DIFFERENTS MODULES CORRESPONDANT A CHAQUE ACTION
@@ -57,6 +58,12 @@ var traite_requete = function (req, res) {
 			default:
 				req_static(req, res, query);
 				break;
+			case '/img/bg.jpg':
+				res.writeHead(200, {'Content-Type': 'image/jpg'});
+				res.write(fs.readFileSync("../img/bg.jpg"));
+				res.end();
+				break;
+				
 		}
 	} catch (e) {
 		console.log('Erreur : ' + e.stack);
