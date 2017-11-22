@@ -12,19 +12,24 @@
 		h2 {
 			text-align : center;
 			font-family :Verdana,Geneva,sans-serif;
-		color : #018CD2;
+			color : #018CD2;
 		}
 		button {
 			width : 200px;
 		}
-
+		em {
+			text-align : center;
+			font-family :Verdana,Geneva,sans-serif;
+			color : #018CD2;
+		}
+			
 		</style>
 	</head>
 	<body background = "../img/bga.jpg">
 		<h2>Formulaire de création de compte</h2>
 		<p/>
 		<div>
-		{erreur}
+		<em>{erreur}<em>
 		<form action="/req_inscrire" method="GET">
 		<input type="text" name="pseudo" value="">
 		<br/>
