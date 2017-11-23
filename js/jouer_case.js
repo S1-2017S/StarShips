@@ -24,8 +24,11 @@ var ecrire_json = function (req, res, query) {
 	//ECRITURE DANS LE JSON
 
 	bateau_J = {};
-	bateau_J.loc = query.idCase;
-	console.log(query.idCase)
+	bateau_J.x = query.x;
+	bateau_J.y = query.y;
+	bateau_J.etat = query.state;
+	bateau_J.type = query.type;
+		
 		liste_bateau_J[liste_bateau_J.length] = bateau_J;
 
 	contenu_fichier = JSON.stringify(liste_bateau_J);
