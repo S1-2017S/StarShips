@@ -12,8 +12,6 @@ require('remedial');
 var trait = function (req, res, query) {
 
 	var marqueurs;
-	var pseudo;
-	var password;
 	var taille_psd;
 	var taille_mdp;
 	var page;
