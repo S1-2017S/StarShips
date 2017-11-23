@@ -1,5 +1,5 @@
 //=========================================================================
-// Traitement de "submit_case"
+// Traitement de "jouer_case"
 // Version : 21/11/2017
 //=========================================================================
 "use strict";
@@ -16,25 +16,25 @@ var ecrire_json = function (req, res, query) {
 
 	//LECTURE JSON
 
-	contenu_fichier = fs.readFileSync("../json/submit.json", 'utf-8');
+	contenu_fichier = fs.readFileSync("../json/jouer_case.json", 'utf-8');
 	liste_bateau_J = JSON.parse(contenu_fichier);
 
 
-	
+
 	//ECRITURE DANS LE JSON
-	
+
 	bateau_J = {};
 	bateau_J.loc = query.idCase;
 	console.log(query.idCase)
-	liste_bateau_J[liste_bateau_J.length] = bateau_J;
+		liste_bateau_J[liste_bateau_J.length] = bateau_J;
 
 	contenu_fichier = JSON.stringify(liste_bateau_J);
 
-	fs.writeFileSync("../json/submit.json", contenu_fichier , 'utf-8');
+	fs.writeFileSync("../json/jouer_case.json", contenu_fichier , 'utf-8');
 
 	// AFFICHAGE DE LA PAGE D'ACCUEIL
 
-	page = fs.readFileSync('../html/placement.html', 'utf-8');
+	page = fs.readFileSync('../html/joueur_actif.html', 'utf-8');
 	res.writeHead(200, {'Content-Type': 'text/html'});
 	res.write(page);
 	res.end();
@@ -42,3 +42,4 @@ var ecrire_json = function (req, res, query) {
 //--------------------------------------------------------------------------
 
 module.exports = ecrire_json;
+

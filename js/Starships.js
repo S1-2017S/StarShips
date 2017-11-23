@@ -24,6 +24,7 @@ var req_static = require("./req_static.js");
 var req_erreur = require("./req_erreur.js");
 var req_jouer = require("./req_jouer.js");
 var submit_case = require("./submit_case.js");
+var jouer_case = require("./jouer_case.js");
 
 //-------------------------------------------------------------------------
 // FONCTION DE CALLBACK APPELLEE POUR CHAQUE REQUETE
@@ -66,6 +67,9 @@ var traite_requete = function (req, res) {
 			default:
 				req_static(req, res, query);
 				break;
+			case '/jouer_case':
+				jouer_case(req, res, query);
+				break;
 			case '/img/bg.jpg':
 				res.writeHead(200, {'Content-Type': 'image/jpg'});
 				res.write(fs.readFileSync("../img/bg.jpg"));
@@ -79,6 +83,11 @@ var traite_requete = function (req, res) {
 			case '/img/carree.png':
 				res.writeHead(200, {'Content-Type': 'image/png'});
 				res.write(fs.readFileSync("../img/carree.png"));
+				res.end();
+				break;
+			case '/img/carre.png':
+				res.writeHead(200, {'Content-Type': 'image/png'});
+				res.write(fs.readFileSync("../img/carre.png"));
 				res.end();
 				break;
 				
