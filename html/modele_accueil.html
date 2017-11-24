@@ -1,24 +1,119 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 	<head>
 		<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
 		<style type = "text/css">
+		input[type=text] {
+		    width: 100%;
+		    padding: 12px 20px;
+		    margin: 8px 0;
+		    box-sizing: border-box;
+		    -webkit-transition: 0.5s;
+		    transition: 0.5s;
+		    outline: none;
+			}
+		input[type=text]:focus {
+			border: 2px solid brown;
+			border-radius: 4px;
+		}
+		input[type=password] {
+		    width: 100%;
+		    padding: 12px 20px;
+		    margin: 8px 0;
+		    box-sizing: border-box;
+		    -webkit-transition: 0.5s;
+		    transition: 0.5s;
+		    outline: none;
+			}
+		input[type=password]:focus {
+			border: 2px solid brown;
+			border-radius: 4px;
+		}
 		h2 {
+			text-align: center;
+			font-family : Palatino Linotype;
+			color : #EBE7E0;
+		}
+		h1 {
+			font-size : 250%;
 			text-align : center;
-			font-family :Verdana,Geneva,sans-serif;
+			font-family : Palatino Linotype;
 			color : #018CD2;
+			font-weight : bold;
+			opacity: 0.8;
 		}
 		div {
 			margin : 0 auto;
-			margin-top : 500px;
-			width : 200px;
+			margin-top : 420px;
+			width : 258px;
+			text-align:center;
 		}
-		.bouton {
-			width : 200px;
-		}
-
+		.bouton1 {
+			border-top: 1px solid #000000;
+			border-left: 1px solid #000000;
+			background: #4d0612;
+			background: -webkit-gradient(linear, left top, left bottom, from(#4c2085), to(#4d0612));
+			background: -webkit-linear-gradient(top, #4c2085, #4d0612);
+			background: -moz-linear-gradient(top, #4c2085, #4d0612);
+			background: -ms-linear-gradient(top, #4c2085, #4d0612);
+			background: -o-linear-gradient(top, #4c2085, #4d0612);
+			padding: 20px 40px;
+			-webkit-border-radius: 16px;
+			-moz-border-radius: 16px;
+			border-radius: 16px;
+			-webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+			-moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+			box-shadow: rgba(0,0,0,1) 0 1px 0;
+			text-shadow: rgba(0,0,0,.4) 0 1px 0;
+			color: #f7f7f7;
+			font-size: 19px;
+			font-family: Palatino Linotype;
+			text-decoration: none;
+			vertical-align: middle;
+			}
+		.bouton1:hover {
+			border-top-color: #04006e;
+			background: #04006e;
+			color: #ccc;
+			}
+		.bouton1:active {
+			border-top-color: #1b435e;
+			background: #1b435e;
+			}
+		.bouton2 {
+		   border-top: 1px solid #000000;
+		   border-left: 1px solid #000000;
+		   background: #4d0612;
+		   background: -webkit-gradient(linear, left top, left bottom, from(#4c2085), to(#4d0612));
+		   background: -webkit-linear-gradient(top, #4c2085, #4d0612);
+		   background: -moz-linear-gradient(top, #4c2085, #4d0612);
+		   background: -ms-linear-gradient(top, #4c2085, #4d0612);
+		   background: -o-linear-gradient(top, #4c2085, #4d0612);
+		   padding: 10px 27px;
+		   -webkit-border-radius: 16px;
+		   -moz-border-radius: 16px;
+		   border-radius: 16px;
+		   -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+		   -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+		   box-shadow: rgba(0,0,0,1) 0 1px 0;
+		   text-shadow: rgba(0,0,0,.4) 0 1px 0;
+		   color: #f7f7f7;
+		   font-size: 16px;
+		   font-family: 'Lucida Grande', Helvetica, Arial, Sans-Serif;
+		   text-decoration: none;
+		   vertical-align: middle;
+		   }
+		.bouton2:hover {
+		   border-top-color: #04006e;
+		   background: #04006e;
+		   color: #ccc;
+		   }
+		.bouton2:active {
+		   border-top-color: #1b435e;
+		   background: #1b435e;
+		   }
 		html { 
-		  	background: url(../img/bga.png) no-repeat center center fixed; 
+		  	background: url(../img/bga.png) no-repeat center center; 
 		  	-webkit-background-size: cover;
 			-moz-background-size: cover;
 			-o-background-size: cover;
@@ -31,18 +126,21 @@
 		{erreur}
 		<p/>
 		<div>
-		<form action="/req_identifier" method="GET"> 
-			<input type="text" name="pseudo" value="{pseudo}"> 
-			<br/>
-			<input type="password" name="password" value="">
-			<br/>
-			<input type="submit" name="action" value="Se connecter" class = "bouton">
+			<h1>LOGIN :</h1>
+			<br>
+			<br>
+		<form action="/req_identifier" method="GET">
+			<input style='font-size: 16px;' type="text" name="pseudo" value="{pseudo}" placeholder="Entrez votre pseudonyme"> 
+			<br>
+			<br>
+			<input style='font-size: 16px;' type="password" name="password" value="" placeholder="Entrez votre mot de passe">
+			<br>
+			<br>
+			<input type="submit" name="action" value="Connexion" class = "bouton1">
 		</form>
-
-		<p/>
-
+		<br>
 		<form action="/req_afficher_formulaire_inscription" method="GET">
-			<button name="action" value="creer" class = "bouton">Création compte</button>
+			<button name="action" value="creer" class = "bouton2">S'inscrire</button>
 		</form>
 		</div>
 	<body>

@@ -4,48 +4,115 @@
 <meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
 
 <style type = "text/css">
-div {
-	padding-top:200px;
-margin : 0 auto;
-width : 200px;
-}
-h2 {
-	text-align : center;
-	font-family :Verdana,Geneva,sans-serif;
-color : #018CD2;
-}
-button {
-width : 200px;
-}
+	input[type=text] {
+	    width: 100%;
+	    padding: 12px 20px;
+	    margin: 8px 0;
+	    box-sizing: border-box;
+	    -webkit-transition: 0.5s;
+	    transition: 0.5s;
+	    outline: none;
+		}
+	input[type=text]:focus {
+		border: 2px solid brown;
+		border-radius: 4px;
+	}
+	input[type=password] {
+	    width: 100%;
+	    padding: 12px 20px;
+	    margin: 8px 0;
+	    box-sizing: border-box;
+	    -webkit-transition: 0.5s;
+	    transition: 0.5s;
+	    outline: none;
+		}
+	input[type=password]:focus {
+		border: 2px solid brown;
+		border-radius: 4px;
+	}
+	div {
+		margin : 0 auto;
+		margin-top : 500px;
+		width : 258px;
+		text-align:center;
+	}
+	h1 {
+		font-size : 250%;
+		text-align : center;
+		font-family : Palatino Linotype;
+		color : #018CD2;
+		font-weight : bold;
+		opacity: 0.8;
+	}
+	h2 {
+		text-align : center;
+		font-family :Verdana,Geneva,sans-serif;
+	color : #018CD2;
+	}
+	.bouton {
+		border-top: 1px solid #000000;
+		border-left: 1px solid #000000;
+		background: #4d0612;
+		background: -webkit-gradient(linear, left top, left bottom, from(#4c2085), to(#4d0612));
+		background: -webkit-linear-gradient(top, #4c2085, #4d0612);
+		background: -moz-linear-gradient(top, #4c2085, #4d0612);
+		background: -ms-linear-gradient(top, #4c2085, #4d0612);
+		background: -o-linear-gradient(top, #4c2085, #4d0612);
+		padding: 20px 40px;
+		-webkit-border-radius: 16px;
+		-moz-border-radius: 16px;
+		border-radius: 16px;
+		-webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+		-moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+		box-shadow: rgba(0,0,0,1) 0 1px 0;
+		text-shadow: rgba(0,0,0,.4) 0 1px 0;
+		color: #f7f7f7;
+		font-size: 19px;
+		font-family: Palatino Linotype;
+		text-decoration: none;
+		vertical-align: middle;
+		}
+	.bouton:hover {
+		border-top-color: #04006e;
+		background: #04006e;
+		color: #ccc;
+		}
+	.bouton:active {
+		border-top-color: #1b435e;
+		background: #1b435e;
+		}
 em {
 	text-align : center;
 	font-family :Verdana,Geneva,sans-serif;
 color : #018CD2;
 }
 
-html {
-background: url(../img/bga.png) no-repeat center center fixed;
-			-webkit-background-size: cover;
+		html { 
+		  	background: url(../img/bga.png) no-repeat center center fixed; 
+		  	-webkit-background-size: cover;
 			-moz-background-size: cover;
 			-o-background-size: cover;
 			background-size: cover;
-}
-
+		}
 
 
 </style>
 </head>
 <body>
-<h2>Formulaire de création de compte</h2>
 <p/>
 <div>
+	<h1>REGISTER:</h1>
 <em>{erreur}<em>
 <form action="/req_inscrire" method="GET">
-<input type="text" name="pseudo" value="">
-<br/>
-<input type="text" name="password" value="">
-<br/>
-<button name="action" value="creer">Créer compte</button>
+<input style='font-size: 16px;' type="text" name="pseudo" value="" placeholder="Entrez votre pseudonyme"> 
+<br>
+<br>
+<br>
+<input style='font-size: 16px;' type="password" name="password" value="" placeholder="Entrez votre mot de passe">
+<br>
+<br>
+<br>
+<button name="action" value="creer" class="bouton">Créer compte</button>
 </form>
 </div>
 </body>
