@@ -18,14 +18,8 @@ height:80px;
 </style>
 </head>
 
-<body background = "../img/bg.jpg">
+<body>
 <style type = "text/css">
-body {
-color : black;
-		background-color : white;
-		background-image : url(../img/bg.jpg);
-		background-repeat: no-repeat;
-}
 h2 {
 	text-align : center;
 	font-family : Verdana,Geneva,sans-serif;
@@ -48,6 +42,15 @@ top:0;
 	margin-top:80px;
 	margin-right:100px;a
 }
+
+html {
+background: url(../img/bga.png) no-repeat center center fixed;
+			-webkit-background-size: cover;
+			-moz-background-size: cover;
+			-o-background-size: cover;
+			background-size: cover;
+}
+
 
 </style>
 
@@ -177,7 +180,7 @@ top:0;
 </tr>
 </table>
 <div>
-<form action="/req_jouer" method="GET">
+<form action="/jouer_case" method="GET">
 <input type = "submit"  value= "JOUER">
 </form>
 </div>

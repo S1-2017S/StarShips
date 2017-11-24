@@ -16,6 +16,8 @@ var ecrire_json = function (req, res, query) {
 	var liste_bateau_J;
 	var grille_bateau_bot;
 	var i;
+	var marqueurs;
+	var touche;
 
 	//LECTURE JSON
 
@@ -32,34 +34,43 @@ var ecrire_json = function (req, res, query) {
 	bateau_J.etat = query.state;
 	bateau_J.type = query.type;
 		
-		liste_bateau_J[liste_bateau_J.length] = bateau_J;
+	liste_bateau_J[liste_bateau_J.length] = bateau_J;
 
 	contenu_fichier = JSON.stringify(liste_bateau_J);
-	console.log(contenu_fichier);
 
 	fs.writeFileSync("../json/jouer_case.json", contenu_fichier , 'utf-8');
 
-	//SCRIPT
+	//MISE EN PLACE DE LA PARTIE
 
 	contenu_fichier_bot = fs.readFileSync("../json/grille_bateau.json" , 'utf-8');
-	console.log(contenu_fichier_bot)
 	grille_bateau_bot = JSON.parse(contenu_fichier_bot);
+	
+	//COMPARAISON DES JSONS
 	
 	for(i = 0 ; i < grille_bateau_bot.length ; i++) {
 
+		marqueurs = {};
+
 		if(grille_bateau_bot[i].x === bateau_J.x) {
 			if(grille_bateau_bot[i].y === bateau_J.y) {
-				console.log("touché");
+				touche = true;
 			}
 		}
 	}
-	
-	
-	
+
+	//ATTRIBUTION DES MARQUEURS
+
+		if(touche !== true) {
+			marqueurs.defaut ="<img src='../img/carre.png'></a></td>";
+		} else {
+			marqueurs.defaut ="<img src='../img/vert.png'></a></td>";
+		}
+		
+		page = fs.readFileSync('../html/joueur_actif.html', 'utf-8');
+		page = page.supplant(marqueurs);
 	
 	// AFFICHAGE DE LA PAGE D'ACCUEIL
 
-	page = fs.readFileSync('../html/joueur_actif.html', 'utf-8');
 	res.writeHead(200, {'Content-Type': 'text/html'});
 	res.write(page);
 	res.end();

@@ -22,7 +22,6 @@ var req_identifier = require("./req_identifier.js");
 
 var req_static = require("./req_static.js");
 var req_erreur = require("./req_erreur.js");
-var req_jouer = require("./req_jouer.js");
 var submit_case = require("./submit_case.js");
 var jouer_case = require("./jouer_case.js");
 
@@ -55,9 +54,6 @@ var traite_requete = function (req, res) {
 			case '/req_inscrire':
 				req_inscrire(req, res, query);
 				break;
-			case '/req_jouer' :
-				req_jouer(req,res,query);
-				break;
 			case '/submit_case' :
 				submit_case(req,res,query);
 				break;
@@ -70,14 +66,14 @@ var traite_requete = function (req, res) {
 			case '/jouer_case':
 				jouer_case(req, res, query);
 				break;
-			case '/img/bg.jpg':
-				res.writeHead(200, {'Content-Type': 'image/jpg'});
-				res.write(fs.readFileSync("../img/bg.jpg"));
+			case '/img/bg.png':
+				res.writeHead(200, {'Content-Type': 'image/png'});
+				res.write(fs.readFileSync("../img/bg.png"));
 				res.end();
 				break;
-			case '/img/bga.jpg':
-				res.writeHead(200, {'Content-Type': 'image/jpg'});
-				res.write(fs.readFileSync("../img/bga.jpg"));
+			case '/img/bga.png':
+				res.writeHead(200, {'Content-Type': 'image/png'});
+				res.write(fs.readFileSync("../img/bga.png"));
 				res.end();
 				break;
 			case '/img/carree.png':
@@ -90,6 +86,10 @@ var traite_requete = function (req, res) {
 				res.write(fs.readFileSync("../img/carre.png"));
 				res.end();
 				break;
+			case '/img/vert.png':
+				res.writeHead(200, {'Content-Type': 'image/png'});
+				res.write(fs.readFileSync("../img/vert.png"));
+				res.end();
 				
 		}
 	} catch (e) {

@@ -1,42 +1,52 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
+<head>
+<meta http-equiv='Content-Type' content='text/html; charset=utf-8' />
 
-		<style type = "text/css">
-		div {
-			padding-top:200px;
-		margin : 0 auto;
-		width : 200px;
-		}
-		h2 {
-			text-align : center;
-			font-family :Verdana,Geneva,sans-serif;
-			color : #018CD2;
-		}
-		button {
-			width : 200px;
-		}
-		em {
-			text-align : center;
-			font-family :Verdana,Geneva,sans-serif;
-			color : #018CD2;
-		}
-			
-		</style>
-	</head>
-	<body background = "../img/bga.jpg">
-		<h2>Formulaire de création de compte</h2>
-		<p/>
-		<div>
-		<em>{erreur}<em>
-		<form action="/req_inscrire" method="GET">
-		<input type="text" name="pseudo" value="">
-		<br/>
-		<input type="text" name="password" value="">
-		<br/>
-		<button name="action" value="creer">Créer compte</button>
-		</form>
-		</div>
-	</body>
+<style type = "text/css">
+div {
+	padding-top:200px;
+margin : 0 auto;
+width : 200px;
+}
+h2 {
+	text-align : center;
+	font-family :Verdana,Geneva,sans-serif;
+color : #018CD2;
+}
+button {
+width : 200px;
+}
+em {
+	text-align : center;
+	font-family :Verdana,Geneva,sans-serif;
+color : #018CD2;
+}
+
+html {
+background: url(../img/bga.png) no-repeat center center fixed;
+			-webkit-background-size: cover;
+			-moz-background-size: cover;
+			-o-background-size: cover;
+			background-size: cover;
+}
+
+
+
+</style>
+</head>
+<body>
+<h2>Formulaire de création de compte</h2>
+<p/>
+<div>
+<em>{erreur}<em>
+<form action="/req_inscrire" method="GET">
+<input type="text" name="pseudo" value="">
+<br/>
+<input type="text" name="password" value="">
+<br/>
+<button name="action" value="creer">Créer compte</button>
+</form>
+</div>
+</body>
 </html>
