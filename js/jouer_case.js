@@ -33,6 +33,7 @@ var ecrire_json = function (req, res, query) {
 	bateau_J.y = query.y;
 	bateau_J.etat = query.state;
 	bateau_J.type = query.type;
+	bateau_J.nom = query.idCase
 		
 	liste_bateau_J[liste_bateau_J.length] = bateau_J;
 
@@ -59,11 +60,13 @@ var ecrire_json = function (req, res, query) {
 	}
 
 	//ATTRIBUTION DES MARQUEURS
-
-		if(touche !== true) {
-			marqueurs.defaut ="<img src='../img/carre.png'></a></td>";
-		} else {
-			marqueurs.defaut ="<img src='../img/vert.png'></a></td>";
+		
+		for(y = 0 ; y <= 100 ; y++) {
+			marqueurs[y] ="<img src='../img/carre.png'></a></td>";
+		}
+		
+		if(touche === true) {
+			marqueurs[bateau_J.nom] ="<img src='../img/vert.png'></a></td>";
 		}
 		
 		page = fs.readFileSync('../html/joueur_actif.html', 'utf-8');
