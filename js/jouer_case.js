@@ -16,11 +16,8 @@ var ecrire_json = function (req, res, query) {
 	var liste_bateau_J;
 	var grille_bateau_bot;
 	var i;
-	var y;
 	var marqueurs;
 	var touche;
-	var nom;
-	var l, c;                // ligne et colonne
 
 	//LECTURE JSON
 
@@ -36,7 +33,7 @@ var ecrire_json = function (req, res, query) {
 	bateau_J.y = query.y;
 	bateau_J.etat = query.state;
 	bateau_J.type = query.type;
-	bateau_J.nom = query.idCase;
+	bateau_J.nom = query.idCase
 		
 	liste_bateau_J[liste_bateau_J.length] = bateau_J;
 
@@ -63,16 +60,17 @@ var ecrire_json = function (req, res, query) {
 	}
 
 	//ATTRIBUTION DES MARQUEURS
-
-	for(l=0; l<10; l++) {
-		for(c=0; c<10; c++) {
-			marqueurs["c" + l + c] = "<img src='../img/vert.png'>"
+		
+		for(y = 0 ; y <= 100 ; y++) {
+			marqueurs[y] ="<img src='../img/carre.png'></a></td>";
 		}
-	}
-
-
-	page = fs.readFileSync('../html/joueur_actif.html', 'utf-8');
-	page = page.supplant(marqueurs);
+		
+		if(touche === true) {
+			marqueurs[bateau_J.nom] ="<img src='../img/vert.png'></a></td>";
+		}
+		
+		page = fs.readFileSync('../html/joueur_actif.html', 'utf-8');
+		page = page.supplant(marqueurs);
 	
 	// AFFICHAGE DE LA PAGE D'ACCUEIL
 
