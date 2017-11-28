@@ -25,7 +25,6 @@ var ecrire_json = function (req, res, query) {
 	var contenu_memoire;
 	var memoire;
 	var inter;
-	var apar;
 
 	//LECTURE JSON
 
@@ -63,16 +62,19 @@ var ecrire_json = function (req, res, query) {
 		if(grille_bateau_bot[i].x === bateau_J.x) {
 			if(grille_bateau_bot[i].y === bateau_J.y) {
 				touche = true;
+				grille_bateau_bot[i].etat = "1"
 			}
 		}
 	}
+	contenu_fichier_bot = JSON.stringify(grille_bateau_bot);
+	fs.writeFileSync("../json/grille_bateau.json" ,contenu_fichier_bot , 'utf-8');
 
 	//ATTRIBUTION DES MARQUEURS
 
 		contenu_memoire = fs.readFileSync("../json/memoire.json", 'utf-8');
 		memoire = JSON.parse(contenu_memoire);
 		
-		for(y = 0 ; y <= 100 ; y++) {
+		for(y = 0 ; y <= 200 ; y++) {
 			marqueurs[y] ="<img src='../img/carre.png'></a></td>";
 		}
 		
@@ -91,18 +93,31 @@ var ecrire_json = function (req, res, query) {
 			marqueurs[memoire[x]] ="<img src='../img/vert.png'></a></td>";
 		}
 		
-		apar = 0;
 
 		for(z = 0 ; z < grille_bateau_bot.length; z++) {
+
 			if(Number(grille_bateau_bot[z].type) === 1) {
+
 				marqueurs[memoire[z]] ="<img src='../img/rouge.png'></a></td>"
+
 			} else if(Number(grille_bateau_bot[z].type) === 2) {
-				grille_bateau_bot[z].nom
+				if(Number(grille_bateau_bot[z].nom) === Number(grille_bateau_bot[z+1].nom)) {
+					
+					if(Number(grille_bateau_bot[z].etat) === Number(grille_bateau_bot[z+1].etat)) {
+						
+						if(Number(grille_bateau_bot[z].etat) === 1) {
+							
+							marqueurs[memoire[z]] = "<img src='../img/rouge.png'></a></td>"
+							marqueurs[memoire[z+1]] = "<img src='../img/rouge.png'></a></td>"
+							console.log("incroyable");
+							break;
+						}
+					}
+				}
 			}
 		}
 	
 
-		console.log(apar);
 		
 		page = fs.readFileSync('../html/joueur_actif.html', 'utf-8');
 		page = page.supplant(marqueurs);
