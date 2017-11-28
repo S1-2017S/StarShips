@@ -1,4 +1,4 @@
-<!OTYP html>
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv ='ontent-Type' content = 'text/html ; charset =utf-8' />
@@ -8,7 +8,7 @@
 	float:left;
 		  border-collapse: collapse;
 		  margin-left : 200px;
-		  margin-top : 10px;
+		  margin-top : 150px;
 	color:purple;
 	}
 	#tableau2 td
@@ -23,7 +23,7 @@
 			border-collapse: collapse;
 		color : purple;
 			margin-right : 200px;
-			margin-top : 10px;
+			margin-top : 150px;
 	}
 	#tableau1 td
 	{
@@ -31,42 +31,18 @@
 		width:30px;
 		height:30px;
 	}
-	h2 {
-		margin-left : 350px;
-		margin-top : 50px;
-		font-size: 30px;
-		color : purple;
-		text-shadow: 2px 2px #000000;
-	}
-	h1 {
-		float:top;
-		text-align:center;
-		font-size: 35px;
-		color : purple;
-		text-shadow: 2px 2px #000000;
-	}
-		h3 {
-		float: right;
-		margin-right: 70px;
-		margin-top:10px;
-		font-size: 35px;
-		color : purple;
-		text-shadow: 2px 2px #000000;
-	}
+	
 	html {
 		background: url(../img/bga.png) no-repeat center center fixed;
 		-webkit-background-size: cover;
 		-moz-background-size: cover;
 		-o-background-size: cover;
 		background-size: cover;
-}
-
+	}
 
 </style>
 </head>
 <body>
-		<h2>rille du bot </h2>
-		<h3>Votre grille de jeu :</h3>
 <table id="tableau1">
 <tr>
 <td><a href=jouer_case?x=1&y=1&state={state}&type=0&idCase=0>{0}
@@ -189,7 +165,6 @@
 <td><a href=jouer_case?x=10&y=10&state={state}&type=0&idCase=100>{100}
 </tr>
 </table>
-<h1>Au tour de <b>{joueur}</b></h1>
 <table id="tableau2">
 <tr>
 <td><a href=case_bot?x=1&y=1&state={state}&type=0&idCase=1>{1'}

@@ -18,11 +18,14 @@ var ecrire_json = function (req, res, query) {
 	var i;
 	var y;
 	var x;
+	var z;
+	var u;
 	var marqueurs;
 	var touche;
 	var contenu_memoire;
 	var memoire;
 	var inter;
+	var apar;
 
 	//LECTURE JSON
 
@@ -87,6 +90,19 @@ var ecrire_json = function (req, res, query) {
 		for(x = 0 ; x < memoire.length ; x++) {
 			marqueurs[memoire[x]] ="<img src='../img/vert.png'></a></td>";
 		}
+		
+		apar = 0;
+
+		for(z = 0 ; z < grille_bateau_bot.length; z++) {
+			if(Number(grille_bateau_bot[z].type) === 1) {
+				marqueurs[memoire[z]] ="<img src='../img/rouge.png'></a></td>"
+			} else if(Number(grille_bateau_bot[z].type) === 2) {
+				grille_bateau_bot[z].nom
+			}
+		}
+	
+
+		console.log(apar);
 		
 		page = fs.readFileSync('../html/joueur_actif.html', 'utf-8');
 		page = page.supplant(marqueurs);

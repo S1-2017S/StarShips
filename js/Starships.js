@@ -25,6 +25,7 @@ var req_erreur = require("./req_erreur.js");
 var submit_case = require("./submit_case.js");
 var jouer_case = require("./jouer_case.js");
 
+
 //-------------------------------------------------------------------------
 // FONCTION DE CALLBACK APPELLEE POUR CHAQUE REQUETE
 //-------------------------------------------------------------------------
@@ -89,6 +90,11 @@ var traite_requete = function (req, res) {
 			case '/img/vert.png':
 				res.writeHead(200, {'Content-Type': 'image/png'});
 				res.write(fs.readFileSync("../img/vert.png"));
+				res.end();
+				break;
+			case '/img/rouge.png':
+				res.writeHead(200, {'Content-Type': 'image/png'});
+				res.write(fs.readFileSync("../img/rouge.png"));
 				res.end();
 				
 		}
