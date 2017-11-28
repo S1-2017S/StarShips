@@ -16,8 +16,16 @@ var ecrire_json = function (req, res, query) {
 	var liste_bateau_J;
 	var grille_bateau_bot;
 	var i;
+	var y;
+	var x;
+	var z;
+	var u;
 	var marqueurs;
 	var touche;
+	var contenu_memoire;
+	var memoire;
+	var inter;
+	var apar;
 
 	//LECTURE JSON
 
@@ -60,14 +68,41 @@ var ecrire_json = function (req, res, query) {
 	}
 
 	//ATTRIBUTION DES MARQUEURS
+
+		contenu_memoire = fs.readFileSync("../json/memoire.json", 'utf-8');
+		memoire = JSON.parse(contenu_memoire);
 		
 		for(y = 0 ; y <= 100 ; y++) {
 			marqueurs[y] ="<img src='../img/carre.png'></a></td>";
 		}
 		
+		// SI BATEAU TOUCHÉ
+
 		if(touche === true) {
 			marqueurs[bateau_J.nom] ="<img src='../img/vert.png'></a></td>";
+			inter = bateau_J.nom;
+			memoire[memoire.length] = inter;
+			contenu_memoire = JSON.stringify(memoire);
+			
+			fs.writeFileSync("../json/memoire.json", contenu_memoire, 'utf-8');
 		}
+		
+		for(x = 0 ; x < memoire.length ; x++) {
+			marqueurs[memoire[x]] ="<img src='../img/vert.png'></a></td>";
+		}
+		
+		apar = 0;
+
+		for(z = 0 ; z < grille_bateau_bot.length; z++) {
+			if(Number(grille_bateau_bot[z].type) === 1) {
+				marqueurs[memoire[z]] ="<img src='../img/rouge.png'></a></td>"
+			} else if(Number(grille_bateau_bot[z].type) === 2) {
+				grille_bateau_bot[z].nom
+			}
+		}
+	
+
+		console.log(apar);
 		
 		page = fs.readFileSync('../html/joueur_actif.html', 'utf-8');
 		page = page.supplant(marqueurs);
