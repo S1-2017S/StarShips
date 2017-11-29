@@ -35,8 +35,8 @@ var traiter_requete = function (req, res, query) {
 	//MODIFICATION DES INFORMATIONS CONTENU DANS LA GRILLE DU BOT
 	for(x = 0 ; x < 10 ; x++) {
 		for(y = 0 ; y < 10 ; y++) {
-			if(grille_bot[x][y].t) === clique_J.x) {
-				grille_bot[x][y].e = "1";
+			if(grille_bot[x][y].t) !== 0 && clique_J.x === {} && clique_J.y === {} ) {
+				grille_bot[{}][{}].e = "1";
 			}
 		}
 	}
