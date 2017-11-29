@@ -9,121 +9,103 @@ require('remedial');
 
 var ecrire_json = function (req, res, query) {
 
-	var page;
-	var contenu_fichier;
-	var contenu_fichier_bot;
-	var bateau_J;
-	var liste_bateau_J;
-	var grille_bateau_bot;
-	var i;
-	var y;
-	var x;
-	var z;
-	var u;
-	var marqueurs;
-	var touche;
+	var page;                        // PAGE HTML OU ON APPLIQUE LES MARQUEURS
+	var contenu_bot;                 // SERT A IMPORTER GRILLE BATEAU
+	var requete_J;                   // REQUETE JOUEUR BRUTE
+	var grille_bot;                  // GRILLE BOT PARSÉ
+	var marqueurs = {};              // MARQUEURS POUR IMAGE
+	var touche;                    	 // SI VALUE = 1 => EXECUTE UN CRIPT
 	var contenu_memoire;
 	var memoire;
 	var inter;
+	var taille_v;
 
-	//LECTURE JSON
+	//DECOUPAGE DE LA REQUETE
 
-	contenu_fichier = fs.readFileSync("../json/jouer_case.json", 'utf-8');
-	liste_bateau_J = JSON.parse(contenu_fichier);
-
-
-
-	//ECRITURE DANS LE JSON
-
-	bateau_J = {};
-	bateau_J.x = query.x;
-	bateau_J.y = query.y;
-	bateau_J.etat = query.state;
-	bateau_J.type = query.type;
-	bateau_J.nom = query.idCase
+	requete_J = {};
+	requete_J.x = query.x;
+	requete_J.y = query.y;
+	requete_J.etat = query.state;
+	requete_J.type = query.type;
+	requete_J.nom = query.idCase
 		
-	liste_bateau_J[liste_bateau_J.length] = bateau_J;
+	//IMPLANTATION GRILLE BOT
 
-	contenu_fichier = JSON.stringify(liste_bateau_J);
-
-	fs.writeFileSync("../json/jouer_case.json", contenu_fichier , 'utf-8');
-
-	//MISE EN PLACE DE LA PARTIE
-
-	contenu_fichier_bot = fs.readFileSync("../json/grille_bateau.json" , 'utf-8');
-	grille_bateau_bot = JSON.parse(contenu_fichier_bot);
+	contenu_bot = fs.readFileSync("../json/grille_bateau.json" , 'utf-8');
+	grille_bot = JSON.parse(contenu_bot);
 	
-	//COMPARAISON DES JSONS
+	//COMPARAISON DE LA REQUETE AVEC LE JSON CONTENANT LA GRILLE DU BOT
 	
-	for(i = 0 ; i < grille_bateau_bot.length ; i++) {
+	
 
-		marqueurs = {};
+	 for(var i = 0 ; i < grille_bot.length ; i++) {
+		
+		if(grille_bot[i].length === 1) {
+			taille_v = 0;
+		} else if(grille_bot[i].length === 2) {
+			taille_v = 1;
+		} else if(grille_bot[i].length === 3) {
+			taille_v = 2;
+		} else if(grille_bot[i].length === 4) {
+			taille_v = 3;
+		}
 
-		if(grille_bateau_bot[i].x === bateau_J.x) {
-			if(grille_bateau_bot[i].y === bateau_J.y) {
+		
+		if(grille_bot[i][0].x === requete_J.x) {
+			if(grille_bot[i][0].y === requete_J.y) {
 				touche = true;
-				grille_bateau_bot[i].etat = "1"
+				grille_bot[i][0].etat = "1"
 			}
 		}
+		
+		taille_v--;
 	}
-	contenu_fichier_bot = JSON.stringify(grille_bateau_bot);
-	fs.writeFileSync("../json/grille_bateau.json" ,contenu_fichier_bot , 'utf-8');
+	
+	//ECRITURE DANS LE JSON(APPLICATION DES CHANGEMENTS SI IL Y EN A)
+	
+	contenu_bot = JSON.stringify(grille_bot);
+	fs.writeFileSync("../json/grille_bateau.json" ,contenu_bot , 'utf-8');
 
-	//ATTRIBUTION DES MARQUEURS
+	//IMPLANTATION DE LA MEMOIRE DES COUPS TIRÉS
 
-		contenu_memoire = fs.readFileSync("../json/memoire.json", 'utf-8');
-		memoire = JSON.parse(contenu_memoire);
+	contenu_memoire = fs.readFileSync("../json/memoire.json", 'utf-8');
+	memoire = JSON.parse(contenu_memoire);
+
+	//IMPLANTATION DE L'IMAGE DE BASE DU JEU(CARRÉ INVISIBLE)
 		
-		for(y = 0 ; y <= 200 ; y++) {
-			marqueurs[y] ="<img src='../img/carre.png'></a></td>";
-		}
+	for(var y = 0 ; y <= 200 ; y++) {
+		marqueurs[y] ="<img src='../img/carre.png'></a></td>";
+	}
 		
-		// SI BATEAU TOUCHÉ
+	//SCRIPT QUI SE LANCE QUAND UN BATEAU EST TOUCHÉ
 
-		if(touche === true) {
-			marqueurs[bateau_J.nom] ="<img src='../img/vert.png'></a></td>";
-			inter = bateau_J.nom;
-			memoire[memoire.length] = inter;
-			contenu_memoire = JSON.stringify(memoire);
+	if(touche === true) {
+		marqueurs[requete_J.nom] ="<img src='../img/vert.png'></a></td>";
+		inter = requete_J.nom;
+		memoire[memoire.length] = inter;
+		contenu_memoire = JSON.stringify(memoire);
 			
-			fs.writeFileSync("../json/memoire.json", contenu_memoire, 'utf-8');
-		}
+		fs.writeFileSync("../json/memoire.json", contenu_memoire, 'utf-8');
+		touche = false;
+	}
 		
-		for(x = 0 ; x < memoire.length ; x++) {
-			marqueurs[memoire[x]] ="<img src='../img/vert.png'></a></td>";
-		}
-		
+	//SCRIPT QUI SE LANCE QUAND UN BATEAU EST DÉTRUIT
 
-		for(z = 0 ; z < grille_bateau_bot.length; z++) {
+	for(var z = 0 ; z < grille_bot.length; z++) {
 
-			if(Number(grille_bateau_bot[z].type) === 1) {
+			if(Number(grille_bot[z].type) === 1) {
 
 				marqueurs[memoire[z]] ="<img src='../img/rouge.png'></a></td>"
 
-			} else if(Number(grille_bateau_bot[z].type) === 2) {
-				if(Number(grille_bateau_bot[z].nom) === Number(grille_bateau_bot[z+1].nom)) {
-					
-					if(Number(grille_bateau_bot[z].etat) === Number(grille_bateau_bot[z+1].etat)) {
-						
-						if(Number(grille_bateau_bot[z].etat) === 1) {
-							
-							marqueurs[memoire[z]] = "<img src='../img/rouge.png'></a></td>"
-							marqueurs[memoire[z+1]] = "<img src='../img/rouge.png'></a></td>"
-							console.log("incroyable");
-							break;
-						}
-					}
-				}
 			}
 		}
 	
 
-		
-		page = fs.readFileSync('../html/joueur_actif.html', 'utf-8');
-		page = page.supplant(marqueurs);
-	
-	// AFFICHAGE DE LA PAGE D'ACCUEIL
+	//AFFICHAGE DE LA PAGE
 
+	page = fs.readFileSync('../html/joueur_actif.html', 'utf-8');
+	page = page.supplant(marqueurs);
+	
 	res.writeHead(200, {'Content-Type': 'text/html'});
 	res.write(page);
 	res.end();
