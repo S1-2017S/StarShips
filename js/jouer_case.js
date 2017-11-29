@@ -115,18 +115,18 @@ var ecrire_json = function (req, res, query) {
 	//SCRIPT QUI SE LANCE QUAND UN BATEAU EST TOUCHÉ
 
 	if(touche === true) {
-		marqueurs[requete_J.nom] ="<img src='../img/vert.png'></a></td>";
 		inter = requete_J.nom;
 		
 		
-		for(var j = 0 ; j < grille_bot.length ; j++) {
+	/*	for(var j = 0 ; j < grille_bot.length ; j++) {
 			if(Number(grille_bot[j][0].type) === 1) {
-				console.log("nugget");
-				marqueurs[memoire[j] ="<img src='../img/rouge.png'></a></td>";
+				marqueurs[memoire[j]] ="<img src='../img/rouge.png'></a></td>";
+			
 			}
+
 		}
+		*/
 		memoire[memoire.length] = inter;
-		
 		contenu_memoire = JSON.stringify(memoire);
 		fs.writeFileSync("../json/memoire.json", contenu_memoire, 'utf-8');
 		touche = false;
@@ -137,12 +137,22 @@ var ecrire_json = function (req, res, query) {
 
 	for(var x = 0 ; x < memoire.length ; x++) {
 		marqueurs[memoire[x]] = "<img src='../img/vert.png'></a></td>";
+		if(Number(grille_bot[x][0].type) === 1) {
+			marqueurs[memoire[x]] = "<img src='../img/rouge.png'></a></td>";
+		} else {
+			if(grille_bot[x][2] === undefined) {
+				if(Number(grille_bot[x][0].etat) === Number(grille_bot[x][1].etat)) {						if(Number(grille_bot[x][0].etat === 1)) {
+						marqueurs[memoire[x]] = "<img src='../img/rouge.png'></a></td>";
+						marqueurs[memoire[x+1]] = "<img src='../img/rouge.png'></a></td>";
+					}
+				}
+			}
+		}
 	}
 	
 
-	//SCRIPT QUI SE LANCE QUAND UN BATEAU EST DÉTRUIT
+	/*
 
-/*	
 	 for(var u = 0 ; u < grille_bot.length ; i++) {
 		
 			if(grille_bot[u].length === 1) {
