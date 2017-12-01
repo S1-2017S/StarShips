@@ -26,6 +26,8 @@ var jouer = function (req, res, query) {
 	var mid_a = false;
 	var mid_b = false;
 
+	var tir = 0;
+
 	//UTILISATION DE LA QUERY
 
 	requete_J = {};
@@ -58,10 +60,12 @@ var jouer = function (req, res, query) {
 		
 		if(Number(requete_J.c) === Number(grille_bot[i][0].p)) {
 			
+			tir = 1;
 			v_t[v_t.length] = grille_bot[i][0].p 
 			grille_bot[i][0].v = "1";
 			
 			if(grille_bot[i][0].n < 5) {
+				tir = 2;
 				v_c[v_c.length] = grille_bot[i][0].p
 			} else if(grille_bot[i][0].n < 8 && grille_bot[i][0].n > 4) {
 				if(grille_bot[i][0].n === grille_bot[i+1][0].n) {
@@ -71,15 +75,18 @@ var jouer = function (req, res, query) {
 				}
 				
 				if(grille_bot[i][0].v === grille_bot[i+1][0].v && plus === true) {
+					tir = 2;
 					v_c[v_c.length] = grille_bot[i][0].p 
 					v_c[v_c.length] = grille_bot[i+1][0].p 
 
 				} else if(grille_bot[i][0].v === grille_bot[i-1][0].v && moins === true) {
+					tir = 2;
 					v_c[v_c.length] = grille_bot[i][0].p 
 					v_c[v_c.length] = grille_bot[i-1][0].p 
 				}
 			
 			} else if(grille_bot[i][0].n > 7 && grille_bot[i][0].n < 10) {
+				
 				if(grille_bot[i][0].n === grille_bot[i+1][0].n && grille_bot[i][0].n === grille_bot[i+2][0].n) {
 					plus = true
 				} else if(grille_bot[i][0].n === grille_bot[i-1][0].n && grille_bot[i][0].n === grille_bot[i-2][0].n) {
@@ -90,16 +97,19 @@ var jouer = function (req, res, query) {
 				}
 				
 				if(grille_bot[i][0].v === grille_bot[i+1][0].v && grille_bot[i][0].v === grille_bot[i+2][0].v && plus === true) {
+					tir = 2;
 					v_c[v_c.length] = grille_bot[i][0].p 
 					v_c[v_c.length] = grille_bot[i+1][0].p 
 					v_c[v_c.length] = grille_bot[i+2][0].p 
 				
 				} else if(grille_bot[i][0].v === grille_bot[i-1][0].v && grille_bot[i][0].v === grille_bot[i-2][0].v && moins === true) {
+					tir = 2;
 					v_c[v_c.length] = grille_bot[i][0].p 
 					v_c[v_c.length] = grille_bot[i-1][0].p 
 					v_c[v_c.length] = grille_bot[i-2][0].p 
 				
 				} else if(grille_bot[i][0].v === grille_bot[i-1][0].v && grille_bot[i][0].v === grille_bot[i+1][0].v && mid === true) {
+					tir = 2;
 					v_c[v_c.length] = grille_bot[i][0].p 
 					v_c[v_c.length] = grille_bot[i+1][0].p 
 					v_c[v_c.length] = grille_bot[i-1][0].p 
@@ -107,9 +117,7 @@ var jouer = function (req, res, query) {
 				}
 		
 			} else if(grille_bot[i][0].n > 9) {
-				console.log(i);
 		
-				
 				if(i === 16 &&grille_bot[i][0].n === grille_bot[i+1][0].n && grille_bot[i][0].n === grille_bot[i+2][0].n && grille_bot[i][0].n === grille_bot[i+3][0].n) {
 					plus = true
 
@@ -125,24 +133,28 @@ var jouer = function (req, res, query) {
 				
 				
 				if(i === 16 && grille_bot[i][0].v === grille_bot[i+1][0].v && grille_bot[i][0].v === grille_bot[i+2][0].v && grille_bot[i][0].v === grille_bot[i+3][0].v && plus === true) {
+					tir = 2;
 					v_c[v_c.length] = grille_bot[i][0].p 
 					v_c[v_c.length] = grille_bot[i+1][0].p 
 					v_c[v_c.length] = grille_bot[i+2][0].p 
 					v_c[v_c.length] = grille_bot[i+3][0].p 
 				
 				} else if(i === 19 && grille_bot[i][0].v === grille_bot[i-1][0].v && grille_bot[i][0].v === grille_bot[i-2][0].v && grille_bot[i][0].v === grille_bot[i-3][0].v && moins === true) {
+					tir = 2;
 					v_c[v_c.length] = grille_bot[i][0].p 
 					v_c[v_c.length] = grille_bot[i-1][0].p 
 					v_c[v_c.length] = grille_bot[i-2][0].p 
 					v_c[v_c.length] = grille_bot[i-3][0].p 
 				
 				} else if(i === 17 && grille_bot[i][0].v === grille_bot[i-1][0].v && grille_bot[i][0].v === grille_bot[i+1][0].v && grille_bot[i][0].v === grille_bot[i+2][0].v && mid_a === true) {
+					tir = 2;
 					v_c[v_c.length] = grille_bot[i][0].p 
 					v_c[v_c.length] = grille_bot[i+1][0].p 
 					v_c[v_c.length] = grille_bot[i-1][0].p 
 					v_c[v_c.length] = grille_bot[i+2][0].p
 				
 				} else if(i === 18 && grille_bot[i][0].v === grille_bot[i-1][0].v && grille_bot[i][0].v === grille_bot[i+1][0].v && grille_bot[i][0].v === grille_bot[i-2][0].v && mid_b === true) {
+					tir = 2;
 					v_c[v_c.length] = grille_bot[i][0].p 
 					v_c[v_c.length] = grille_bot[i+1][0].p 
 					v_c[v_c.length] = grille_bot[i-1][0].p 
@@ -151,7 +163,16 @@ var jouer = function (req, res, query) {
 				}
 		
 			}
-		}
+		} 
+		
+	}
+
+	if(tir === 0) {
+		marqueur.tir = "rate"
+	} else if(tir === 1) {
+		marqueur.tir = "touche"
+	} else if(tir === 2) {
+		marqueur.tir = "detruit"
 	}
 	
 	contenu_t = JSON.stringify(v_t);
