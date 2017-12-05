@@ -26,7 +26,11 @@ var jouer = function (req, res, query) {
 	var mid_a = false;
 	var mid_b = false;
 
+
 	var tir = 0;
+	var li_score;
+	var contenu_score;
+	var score = 0;
 
 	//UTILISATION DE LA QUERY
 
@@ -46,6 +50,12 @@ var jouer = function (req, res, query) {
 	contenu_c = fs.readFileSync("../json/memoire_c.json" , 'utf-8');
 	v_c = JSON.parse(contenu_c);
 
+	//LECTURE DU SCORE
+	
+	contenu_score = fs.readFileSync("../json/score.json" , 'utf-8');
+	li_score = JSON.parse(contenu_score);
+	
+
 	//MISE EN PLACE DU "VIDE"
 	
 	for(var o = 0 ; o <= 200 ; o++) {
@@ -55,18 +65,20 @@ var jouer = function (req, res, query) {
 	//VERIFICATION ECHEC OU REUSSITE DU TIR
 	
 	
-	
+	console.log(li_score[0].s);
 	for(var i = 0 ; i < grille_bot.length ; i++) {
 		
 		if(Number(requete_J.c) === Number(grille_bot[i][0].p)) {
 			
 			tir = 1;
 			v_t[v_t.length] = grille_bot[i][0].p 
-			grille_bot[i][0].v = "1";
-			
+		 	grille_bot[i][0].v = "1";
+			li_score[0].s = Number(li_score[0].s)
+			li_score[0].s =  li_score[0].s + 100;
 			if(grille_bot[i][0].n < 5) {
 				tir = 2;
 				v_c[v_c.length] = grille_bot[i][0].p
+				li_score[0].s = li_score[0].s + 100;
 			} else if(grille_bot[i][0].n < 8 && grille_bot[i][0].n > 4) {
 				if(grille_bot[i][0].n === grille_bot[i+1][0].n) {
 					plus = true;
@@ -78,11 +90,12 @@ var jouer = function (req, res, query) {
 					tir = 2;
 					v_c[v_c.length] = grille_bot[i][0].p 
 					v_c[v_c.length] = grille_bot[i+1][0].p 
-
+					li_score[0].s = li_score[0].s + 200;
 				} else if(grille_bot[i][0].v === grille_bot[i-1][0].v && moins === true) {
 					tir = 2;
 					v_c[v_c.length] = grille_bot[i][0].p 
 					v_c[v_c.length] = grille_bot[i-1][0].p 
+					li_score[0].s = li_score[0].s + 200;
 				}
 			
 			} else if(grille_bot[i][0].n > 7 && grille_bot[i][0].n < 10) {
@@ -92,6 +105,7 @@ var jouer = function (req, res, query) {
 				} else if(grille_bot[i][0].n === grille_bot[i-1][0].n && grille_bot[i][0].n === grille_bot[i-2][0].n) {
 					moins = true;
 				
+
 				} else if(grille_bot[i][0].n === grille_bot[i-1][0].n && grille_bot[i][0].n === grille_bot[i+1][0].n) {
 					mid = true;
 				}
@@ -101,18 +115,21 @@ var jouer = function (req, res, query) {
 					v_c[v_c.length] = grille_bot[i][0].p 
 					v_c[v_c.length] = grille_bot[i+1][0].p 
 					v_c[v_c.length] = grille_bot[i+2][0].p 
+					li_score[0].s = li_score[0].s + 300;
 				
 				} else if(grille_bot[i][0].v === grille_bot[i-1][0].v && grille_bot[i][0].v === grille_bot[i-2][0].v && moins === true) {
 					tir = 2;
 					v_c[v_c.length] = grille_bot[i][0].p 
 					v_c[v_c.length] = grille_bot[i-1][0].p 
 					v_c[v_c.length] = grille_bot[i-2][0].p 
+					li_score[0].s = li_score[0].s + 300;
 				
 				} else if(grille_bot[i][0].v === grille_bot[i-1][0].v && grille_bot[i][0].v === grille_bot[i+1][0].v && mid === true) {
 					tir = 2;
 					v_c[v_c.length] = grille_bot[i][0].p 
 					v_c[v_c.length] = grille_bot[i+1][0].p 
 					v_c[v_c.length] = grille_bot[i-1][0].p 
+					li_score[0].s = li_score[0].s + 300;
 				
 				}
 		
@@ -131,13 +148,13 @@ var jouer = function (req, res, query) {
 					mid_b = true;
 				}
 				
-				
 				if(i === 16 && grille_bot[i][0].v === grille_bot[i+1][0].v && grille_bot[i][0].v === grille_bot[i+2][0].v && grille_bot[i][0].v === grille_bot[i+3][0].v && plus === true) {
 					tir = 2;
 					v_c[v_c.length] = grille_bot[i][0].p 
 					v_c[v_c.length] = grille_bot[i+1][0].p 
 					v_c[v_c.length] = grille_bot[i+2][0].p 
 					v_c[v_c.length] = grille_bot[i+3][0].p 
+					li_score[0].s = li_score[0].s + 400;
 				
 				} else if(i === 19 && grille_bot[i][0].v === grille_bot[i-1][0].v && grille_bot[i][0].v === grille_bot[i-2][0].v && grille_bot[i][0].v === grille_bot[i-3][0].v && moins === true) {
 					tir = 2;
@@ -145,6 +162,7 @@ var jouer = function (req, res, query) {
 					v_c[v_c.length] = grille_bot[i-1][0].p 
 					v_c[v_c.length] = grille_bot[i-2][0].p 
 					v_c[v_c.length] = grille_bot[i-3][0].p 
+					li_score[0].s = li_score[0].s + 400;
 				
 				} else if(i === 17 && grille_bot[i][0].v === grille_bot[i-1][0].v && grille_bot[i][0].v === grille_bot[i+1][0].v && grille_bot[i][0].v === grille_bot[i+2][0].v && mid_a === true) {
 					tir = 2;
@@ -152,6 +170,7 @@ var jouer = function (req, res, query) {
 					v_c[v_c.length] = grille_bot[i+1][0].p 
 					v_c[v_c.length] = grille_bot[i-1][0].p 
 					v_c[v_c.length] = grille_bot[i+2][0].p
+					li_score[0].s = li_score[0].s + 400;
 				
 				} else if(i === 18 && grille_bot[i][0].v === grille_bot[i-1][0].v && grille_bot[i][0].v === grille_bot[i+1][0].v && grille_bot[i][0].v === grille_bot[i-2][0].v && mid_b === true) {
 					tir = 2;
@@ -159,6 +178,7 @@ var jouer = function (req, res, query) {
 					v_c[v_c.length] = grille_bot[i+1][0].p 
 					v_c[v_c.length] = grille_bot[i-1][0].p 
 					v_c[v_c.length] = grille_bot[i-2][0].p 
+					li_score[0].s = li_score[0].s + 400;
 				
 				}
 		
@@ -174,6 +194,12 @@ var jouer = function (req, res, query) {
 	} else if(tir === 2) {
 		marqueur.tir = "detruit"
 	}
+
+	
+	contenu_score = JSON.stringify(li_score);
+	fs.writeFileSync("../json/score.json" , contenu_score , 'utf-8');
+	marqueur.score = li_score[0].s;
+	
 	
 	contenu_t = JSON.stringify(v_t);
 	fs.writeFileSync("../json/memoire_t.json" , contenu_t , 'utf-8');
