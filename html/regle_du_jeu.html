@@ -34,11 +34,17 @@
 <body>
 
 <h1>Commencer une partie de Starships</h1><br>
-<div>Au début du jeu, le joueur place à sa guise tous les vaisseaux sur sa grille numerotée de 1 a 10 horizontalement et A a J verticalement de façon stratégique. Le but étant de compliquer au maximum la tache de son adversaire, c’est-à-dire détruire tous vos vaisseaux. Bien entendu, le joueur ne voit pas la grille de son adversaire.<br>
-Une fois tous les vaisseaux en jeu, la partie peut commencer.. Un à un, les joueurs se tire dessus pour détruire les vaisseau ennemis.
-Si un joueur tire sur un vaisseau ennemi, la case de l'adversaire devient verte et. Il peut jouer deux fois de suite si le navire est touché.
-Lorsque toutes les parties du vaisseau sont touchées les cases deviennent rouge.</div><br>
+<div>Au début du jeu, le joueur place à sa guise tous les vaisseaux sur sa grille de  10x10 de la manière la plus stratégique possible.L'objectif étant de compliquer au maximun la tache de votre adversaire: Détuire toute ça flotte.Bien entendu, le joueur e voit pa sla grille de son adversaire, de même pour l'ordinateur. <br>
+Une fois tous les vaisseaux en jeu, la partie peut commencer!
+Grâce à un système de tour par tour, le joueur et l'ordinateur se tire dessus pour détruire les vaisseaux.
+Si vous touchez un vaisseau ennemi, la case de  l'adversaire deviendra vert indiquant que votre tire  bien touché un vaisseau mais qu'il n'est pas totalement détruit.Vous pouvez rejouer tant que le vos tir atteignent vos cibles mais ce sera le tour de votre adversaire au premier tir échoué.
+Lorsqu'un vaisseau est détruit toutes les parties du vaisseau virent au rouge.
+Parlons des scores vous gagnez 100 points pour chaque vaisseau touché et 200 points par vaisseau detruit cependant vous perdez 50 points quand vous tirez dans le vide.</div><br>
 <h1> Comment gagner la partie</h1><br>
-<div>La partie se termine lorsque le joueur ou l'ordinateur n'a plus de navires.</div>
+<div>La partie se termine lorsque le joueur ou l'ordinateur n'a plus de vaisseau.</div>
+<div>
+<form action = "/placement" method = "GET">
+<input type = "submit" value = " PLACEMENT">
+</div>
 </body>
 </html>
