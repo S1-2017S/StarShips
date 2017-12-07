@@ -4,19 +4,7 @@
 <meta http-equiv="Content_Type" content = "text/html" ; charset = "UTF-8" />
 <style type="text/css">
 	html {
-		background: url(../img/bga.png) no-repeat center center fixed;
-		-webkit-background-size: cover;
-		-moz-background-size: cover;
-		-o-background-size: cover;
-		background-size: cover;
-	}	
-
-	body {
-		margin-top:5cm;
-		text-align:center;
-		}
-
-	h1 {
+		background: url(../img/bga_2.png) no-repeat center center fixed;
 		text-align:center;
 		font-size : 250%;
 		font-family : Palatino Linotype;
@@ -34,17 +22,18 @@
 <body>
 
 <h1>Commencer une partie de Starships</h1><br>
-<div>Au début du jeu, le joueur place à sa guise tous les vaisseaux sur sa grille de  10x10 de la manière la plus stratégique possible.L'objectif étant de compliquer au maximun la tache de votre adversaire: Détuire toute ça flotte.Bien entendu, le joueur e voit pa sla grille de son adversaire, de même pour l'ordinateur. <br>
+<div>Au début du jeu, le joueur place à sa guise tous les vaisseaux sur sa grille de  10x10 de la manière la plus stratégique possible.L'objectif étant de compliquer au maximun la tâche de votre adversaire : Détuire toute votre flotte.Bien entendu, le joueur ne voit pa la grille de son adversaire, de même pour l'ordinateur. <br>
 Une fois tous les vaisseaux en jeu, la partie peut commencer!
 Grâce à un système de tour par tour, le joueur et l'ordinateur se tire dessus pour détruire les vaisseaux.
-Si vous touchez un vaisseau ennemi, la case de  l'adversaire deviendra vert indiquant que votre tire  bien touché un vaisseau mais qu'il n'est pas totalement détruit.Vous pouvez rejouer tant que le vos tir atteignent vos cibles mais ce sera le tour de votre adversaire au premier tir échoué.
+Si vous touchez un vaisseau ennemi, la case de l'adversaire deviendra verte indiquant que votre tir à bien touché un vaisseau mais qu'il n'est pas totalement détruit.Vous pouvez rejouer tant que vos tirs atteignent vos cibles mais ce sera le tour de votre adversaire au premier tir échoué.
 Lorsqu'un vaisseau est détruit toutes les parties du vaisseau virent au rouge.
-Parlons des scores vous gagnez 100 points pour chaque vaisseau touché et 200 points par vaisseau detruit cependant vous perdez 50 points quand vous tirez dans le vide.</div><br>
+Parlons des scores vous gagnez 100 points pour chaque vaisseau touché et 100 points fois le nombre de cases composant le vaisseau pour chaque vaisseau détruit.
+Cependant vous perdez 50 points quand vous tirez dans le vide.</div><br>
 <h1> Comment gagner la partie</h1><br>
 <div>La partie se termine lorsque le joueur ou l'ordinateur n'a plus de vaisseau.</div>
 <div>
-<form action = "/placement" method = "GET">
-<input type = "submit" value = " PLACEMENT">
+<form action ="/req_placement" method ="GET">
+<input type = "submit" value = "PLACEMENT">
 </div>
 </body>
 </html>

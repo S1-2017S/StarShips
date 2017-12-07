@@ -24,6 +24,7 @@ var req_static = require("./req_static.js");
 var req_erreur = require("./req_erreur.js");
 var submit_case = require("./submit_case.js");
 var jouer_case = require("./jouer_case.js");
+var req_placement = require("./req_placement.js");
 
 
 //-------------------------------------------------------------------------
@@ -61,17 +62,19 @@ var traite_requete = function (req, res) {
 			case '/req_identifier':
 				req_identifier(req, res, query);
 				break;
+			case '/req_placement':
+				req_placement(req, res, query);
+				break;
 			default:
 				req_static(req, res, query);
 				break;
 			case '/jouer_case':
 				jouer_case(req, res, query);
 				break;
-			case '/img/bg.png':
+			case '/img/bga_2.png':
 				res.writeHead(200, {'Content-Type': 'image/png'});
-				res.write(fs.readFileSync("../img/bg.png"));
+				res.write(fs.readFileSync("../img/bga_2.png"));
 				res.end();
-				break;
 			case '/img/bga.png':
 				res.writeHead(200, {'Content-Type': 'image/png'});
 				res.write(fs.readFileSync("../img/bga.png"));
