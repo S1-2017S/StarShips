@@ -1,59 +1,108 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv ='ontent-Type' content = 'text/html ; charset =utf-8' />
+<meta http-equiv ='Content-Type' content = 'text/html' ; charset ='UTF-8' />
 <style type="text/css">
-	#tableau2
-	{
-	float:left;
-		  border-collapse: collapse;
-		  margin-left : 200px;
-		  margin-top : 150px;
-	color:purple;
-	}
-	#tableau2 td
-	{
-		border: 1px solid grey;
-		width:30px;
-		height:30px;
-	}
-	#tableau1
-	{	
+#tableau2
+{
+float:left;
+	  border-collapse: collapse;
+	  margin-left : 200px;
+	  margin-top : 300px;
+}
+#tableau2 td
+{
+border: 1px solid blue;
+box-shadow : 0px 0px 20px #4736AC;
+}
+#tableau1
+{	
 		float:right;
-			border-collapse: collapse;
-		color : purple;
-			margin-right : 200px;
-			margin-top : 150px;
-	}
-	#tableau1 td
-	{
-		border: 1px solid grey;
-		width:30px;
-		height:30px;
-	}
-	
-	html {
-		background: url(../img/bga.png) no-repeat center center fixed;
-		-webkit-background-size: cover;
-		-moz-background-size: cover;
-		-o-background-size: cover;
-		background-size: cover;
-	}
-	
-	.score {
-		margin-left : 200px;
-		color : red;
-	}
+	  	border-collapse: collapse;
+		margin-right : 200px;
+		margin-top : 300px;
+}
+#tableau1 td
+{
+border: 1px solid red;
+box-shadow : 0px 0px 20px #ff005b;
+}
 
-	.tir {
-		margin-left : 500px;
-		color : blue;
-	}
+html {
+background: url(../img/bg_actif.png) no-repeat center center fixed;
+			-webkit-background-size: cover;
+			-moz-background-size: cover;
+			-o-background-size: cover;
+			background-size: cover;
+}
+
+.score {
+	margin-left : 200px;
+color : red;
+}
+
+.tir {
+	margin-left : 500px;
+color : blue;
+}
+.neon
+{
+position : absolute;
+margin-top : 30px;
+left : 5%;
+transform:translate(-50%,-50%);
+margin : 10; 
+padding : 0 20px;
+		  font-size: 250%;
+color : #fff; 
+		text-shadow : 0 0 20px #ff005b;
+		
+}
+
+.neon:after
+{
+content: attr(data-text);
+position : absolute;
+top : 0;
+left : 0;
+padding: 0 20px;
+		 z-index: -1;
+color: #ff005b;
+}
+
+.neon2
+{
+position : absolute;
+margin-top : 30px;
+left : 94%;
+transform:translate(-50%,-50%);
+margin : 10; 
+padding : 0 20px;
+		  font-size: 250%;
+color : #4737a6; 
+		text-shadow : 0 0 20px #4737a6;
+}
+
+.neon2:after
+{
+content: attr(data-text);
+position : absolute;
+top : 0;
+left : 0;
+padding: 0 20px;
+		 z-index: -1;
+color: #4737a6;
+}
+
 </style>
 </head>
 <body>
-<div class = "tir">{tir}</div>
-<div class = "score">{score}</div>
+</style>
+</head>
+<body>
+<div class = "neon2">{tir}</div>
+<div class = "neon">{score}</div>
+<div class = "pseudo">{pseudo}</div>
 <table id="tableau1">
 <tr>
 <td><a href=jouer_case?idCase=0&pseudo={pseudo}>{0}

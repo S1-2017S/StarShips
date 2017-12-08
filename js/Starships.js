@@ -75,6 +75,22 @@ var traite_requete = function (req, res) {
 				res.writeHead(200, {'Content-Type': 'image/png'});
 				res.write(fs.readFileSync("../img/bga_2.png"));
 				res.end();
+				break;
+			case '/img/bg_place.png':
+				res.writeHead(200, {'Content-Type': 'image/png'});
+				res.write(fs.readFileSync("../img/bg_place.png"));
+				res.end();
+				break;
+			case '/img/bg_actif.png':
+				res.writeHead(200, {'Content-Type': 'image/png'});
+				res.write(fs.readFileSync("../img/bg_actif.png"));
+				res.end();
+				break;
+			case '/img/bg_regle.png':
+				res.writeHead(200, {'Content-Type': 'image/png'});
+				res.write(fs.readFileSync("../img/bg_regle.png"));
+				res.end();
+				break;
 			case '/img/bga.png':
 				res.writeHead(200, {'Content-Type': 'image/png'});
 				res.write(fs.readFileSync("../img/bga.png"));

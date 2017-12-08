@@ -3,37 +3,56 @@
 <head>
 <meta http-equiv="Content_Type" content = "text/html" ; charset = "UTF-8" />
 <style type="text/css">
-	html {
-		background: url(../img/bga_2.png) no-repeat center center fixed;
-		text-align:center;
-		font-size : 250%;
-		font-family : Palatino Linotype;
-		color : #CD5C5C;
-	}
+@import url('https://fonts.googleapis.com/css?family=Yantramanav:100');
 
-	div { 
-		color: white;
-		font-size: 150%;
-	}
+html {
+background: url(../img/bg_regle.png) no-repeat center center fixed;
+			text-align:center;
+			font-size : 250%;
+			font-family : Palatino Linotype;
+color : #CD5C5C;
+}
+form {
+	margin-top: 780px;
+}
 
+.button {
+	border-top: 1px solid #2ea6ec;
+	border-left: 1px solid #2ea6ec;
+background: #216873;
+background: -webkit-gradient(linear, left top, left bottom, from(#161330), to(#216873));
+background: -webkit-linear-gradient(top, #161330, #216873);
+background: -moz-linear-gradient(top, #161330, #216873);
+background: -ms-linear-gradient(top, #161330, #216873);
+background: -o-linear-gradient(top, #161330, #216873);
+padding: 20px 40px;
+		 -webkit-border-radius: 16px;
+		 -moz-border-radius: 16px;
+		 border-radius: 16px;
+		 -webkit-box-shadow: rgba(0,0,0,1) 0 1px 0;
+		 -moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+		 box-shadow: rgba(0,0,0,1) 0 1px 0;
+		 text-shadow: rgba(0,0,0,.4) 0 1px 0;
+color: #f7f7f7;
+	   font-size: 19px;
+	   font-family: 'Lucida Grande', Helvetica, Arial, Sans-Serif;
+	   text-decoration: none;
+	   vertical-align: middle;
+}
+.button:hover {
+	border-top-color: #5e0091;
+background: #5e0091;
+color: #ccc;
+}
+.button:active {
+	border-top-color: #0099ff;
+background: #0099ff;
+}
 </style>
 </head>
 
 <body>
-
-<h1>Commencer une partie de Starships</h1><br>
-<div>Au début du jeu, le joueur place à sa guise tous les vaisseaux sur sa grille de  10x10 de la manière la plus stratégique possible.L'objectif étant de compliquer au maximun la tâche de votre adversaire : Détuire toute votre flotte.Bien entendu, le joueur ne voit pa la grille de son adversaire, de même pour l'ordinateur. <br>
-Une fois tous les vaisseaux en jeu, la partie peut commencer!
-Grâce à un système de tour par tour, le joueur et l'ordinateur se tire dessus pour détruire les vaisseaux.
-Si vous touchez un vaisseau ennemi, la case de l'adversaire deviendra verte indiquant que votre tir à bien touché un vaisseau mais qu'il n'est pas totalement détruit.Vous pouvez rejouer tant que vos tirs atteignent vos cibles mais ce sera le tour de votre adversaire au premier tir échoué.
-Lorsqu'un vaisseau est détruit toutes les parties du vaisseau virent au rouge.
-Parlons des scores vous gagnez 100 points pour chaque vaisseau touché et 100 points fois le nombre de cases composant le vaisseau pour chaque vaisseau détruit.
-Cependant vous perdez 50 points quand vous tirez dans le vide.</div><br>
-<h1> Comment gagner la partie</h1><br>
-<div>La partie se termine lorsque le joueur ou l'ordinateur n'a plus de vaisseau.</div>
-<div>
 <form action ="/req_placement" method ="GET">
-<input type = "submit" value = "PLACEMENT">
-</div>
+<input type = "submit" value = "PLACEMENT" class = "button">
 </body>
 </html>

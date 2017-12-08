@@ -26,6 +26,8 @@ var jouer = function (req, res, query) {
 	var mid_a = false;
 	var mid_b = false;
 
+	var contenu_pseudo;
+	var pseudo;
 
 	var tir = 0;
 	var li_score;
@@ -55,6 +57,10 @@ var jouer = function (req, res, query) {
 	contenu_score = fs.readFileSync("../json/score.json" , 'utf-8');
 	li_score = JSON.parse(contenu_score);
 	
+	//LECTURE DU PSEUDO
+
+	contenu_pseudo = fs.readFileSync("../json/membres.json" , 'utf-8');
+	pseudo = JSON.parse(contenu_pseudo);
 
 	//MISE EN PLACE DU "VIDE"
 	
@@ -187,15 +193,20 @@ var jouer = function (req, res, query) {
 		
 	}
 
+	// ATTRIBUTION DES MARQUEURS
+	
 	if(tir === 0) {
-		marqueur.tir = "rate"
+		li_score[0].s = li_score[0].s - 50;
+		marqueur.tir = "raté"
 	} else if(tir === 1) {
-		marqueur.tir = "touche"
+		marqueur.tir = "touché"
 	} else if(tir === 2) {
-		marqueur.tir = "detruit"
+		marqueur.tir = "détruit"
 	}
 
-	
+	marqueur.pseudo = pseudo[0].pseudo;
+
+
 	contenu_score = JSON.stringify(li_score);
 	fs.writeFileSync("../json/score.json" , contenu_score , 'utf-8');
 	marqueur.score = li_score[0].s;
