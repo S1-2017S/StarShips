@@ -29,10 +29,12 @@ var jouer = function (req, res, query) {
 	var contenu_pseudo;
 	var pseudo;
 
-	var tir = 0;
+	var tir;
 	var li_score;
 	var contenu_score;
 	var score = 0;
+	
+	
 
 	//UTILISATION DE LA QUERY
 
@@ -62,6 +64,8 @@ var jouer = function (req, res, query) {
 	contenu_pseudo = fs.readFileSync("../json/membres.json" , 'utf-8');
 	pseudo = JSON.parse(contenu_pseudo);
 
+	marqueur.pseudo = pseudo[0].pseudo; //remplacement du pseudo dans la query;
+	
 	//MISE EN PLACE DU "VIDE"
 	
 	for(var o = 0 ; o <= 200 ; o++) {
@@ -189,8 +193,9 @@ var jouer = function (req, res, query) {
 				}
 		
 			}
-		} 
-		
+		} else {
+			tir = 0;
+		}
 	}
 
 	// ATTRIBUTION DES MARQUEURS
@@ -204,7 +209,6 @@ var jouer = function (req, res, query) {
 		marqueur.tir = "détruit"
 	}
 
-	marqueur.pseudo = pseudo[0].pseudo;
 
 
 	contenu_score = JSON.stringify(li_score);
