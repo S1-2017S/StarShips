@@ -41,7 +41,6 @@ var traite_requete = function (req, res) {
 	requete = url.parse(req.url, true);
 	pathname = requete.pathname;
 	query = requete.query;
-
 	// ROUTEUR
 
 	try {

@@ -9,199 +9,176 @@ require('remedial');
 
 var jouer = function (req, res, query) {
 
-	var page;
-	var requete_J;
-	var contenu_bot;
-	var grille_bot;
+	var page;                      // contenu de la page
+	var requete_J;                 // requete reçu
+	var contenu_partie;               // contenu de la grille non parsé 
+	var partie;                // liste contenant les vaisseaux
 	
-	var contenu_t;
-	var v_t;
-	var contenu_c;
-	var v_c;
 
-	var marqueur = {};
-	var plus = false;
-	var moins = false;
-	var mid = false;
-	var mid_a = false;
-	var mid_b = false;
-
-	var contenu_pseudo;
-	var pseudo;
-
-	var tir;
-	var li_score;
-	var contenu_score;
-	var score = 0;
+	var marqueur = {};             // marqueurs
 	
-	
+	var plus = false;              //
+	var moins = false;             //
+	var mid = false;               // Sert pour la comparaison
+	var mid_a = false;             //
+	var mid_b = false;             //
+
+	var contenu_pseudo;            //
+	var pseudo;                    // pseudo
+
+	var tir = 0;                       
+	marqueur.tir = "";
 
 	//UTILISATION DE LA QUERY
 
 	requete_J = {};
 	requete_J.c = query.idCase
+	requete_J.c = Number(requete_J.c);
+	requete_J.p = query.pseudo;
 
-	//LECTURE JSON GRILLE BOT
-	contenu_bot = fs.readFileSync("../json/grille_bateau.json" , 'utf-8');
-	grille_bot = JSON.parse(contenu_bot);
-	
-	
-	//LECTURE DES 2 JSONS RESPONSABLES DE LA MEMOIRE
-
-	contenu_t = fs.readFileSync("../json/memoire_t.json" , 'utf-8');
-	v_t = JSON.parse(contenu_t);
-	
-	contenu_c = fs.readFileSync("../json/memoire_c.json" , 'utf-8');
-	v_c = JSON.parse(contenu_c);
-
-	//LECTURE DU SCORE
-	
-	contenu_score = fs.readFileSync("../json/score.json" , 'utf-8');
-	li_score = JSON.parse(contenu_score);
+	//LECTURE ETAT PARTIE
+	console.log(requete_J.p);
+	partie = fs.readFileSync("../json/etat_partie.json" , 'utf-8');
+	contenu_partie = JSON.parse(partie);
 	
 	//LECTURE DU PSEUDO
 
 	contenu_pseudo = fs.readFileSync("../json/membres.json" , 'utf-8');
 	pseudo = JSON.parse(contenu_pseudo);
 
+	
 	marqueur.pseudo = pseudo[0].pseudo; //remplacement du pseudo dans la query;
 	
 	//MISE EN PLACE DU "VIDE"
-	
+
 	for(var o = 0 ; o <= 200 ; o++) {
 		marqueur[o] ="<img src='../img/carre.png'></a></td>";
 	}
 	
 	//VERIFICATION ECHEC OU REUSSITE DU TIR
 	
-	
-	console.log(li_score[0].s);
-	for(var i = 0 ; i < grille_bot.length ; i++) {
-		
-		if(Number(requete_J.c) === Number(grille_bot[i][0].p)) {
-			
+
+	for(var i = 0 ; i < contenu_partie[0].length ; i++) {
+		if(requete_J.c === contenu_partie[0][i].p) {
 			tir = 1;
-			v_t[v_t.length] = grille_bot[i][0].p 
-		 	grille_bot[i][0].v = "1";
-			li_score[0].s = Number(li_score[0].s)
-			li_score[0].s =  li_score[0].s + 100;
-			if(grille_bot[i][0].n < 5) {
+			contenu_partie[1][contenu_partie[1].length] = contenu_partie[0][i].p 
+		 	contenu_partie[0][i].v = 1;
+			contenu_partie[3][0].s = contenu_partie[3][0].s + 100;
+			if(contenu_partie[0][i].n < 5) {
 				tir = 2;
-				v_c[v_c.length] = grille_bot[i][0].p
-				li_score[0].s = li_score[0].s + 100;
-			} else if(grille_bot[i][0].n < 8 && grille_bot[i][0].n > 4) {
-				if(grille_bot[i][0].n === grille_bot[i+1][0].n) {
+			    contenu_partie[2][contenu_partie[2].length] = contenu_partie[0][i].p 
+				contenu_partie[3][0].s = contenu_partie[3][0].s + 100;
+			} else if(contenu_partie[0][i].n < 8 && contenu_partie[0][i].n > 4) {
+				if(contenu_partie[0][i].n === contenu_partie[0][i+1].n) {
 					plus = true;
-				} else if(grille_bot[i][0].n === grille_bot[i-1][0].n) {
+				} else if(contenu_partie[0][i].n === contenu_partie[0][i-1].n) {
 					moins = true;
 				}
 				
-				if(grille_bot[i][0].v === grille_bot[i+1][0].v && plus === true) {
+				if(contenu_partie[0][i].v === contenu_partie[0][i+1].v && plus === true) {
 					tir = 2;
-					v_c[v_c.length] = grille_bot[i][0].p 
-					v_c[v_c.length] = grille_bot[i+1][0].p 
-					li_score[0].s = li_score[0].s + 200;
-				} else if(grille_bot[i][0].v === grille_bot[i-1][0].v && moins === true) {
+					contenu_partie[2][contenu_partie[2].length] = contenu_partie[0][i].p 
+					contenu_partie[2][contenu_partie[2].length] = contenu_partie[0][i+1].p 
+					contenu_partie[3][0].s = contenu_partie[3][0].s + 200;
+				} else if(contenu_partie[0][i].v === contenu_partie[0][i-1].v && moins === true) {
 					tir = 2;
-					v_c[v_c.length] = grille_bot[i][0].p 
-					v_c[v_c.length] = grille_bot[i-1][0].p 
-					li_score[0].s = li_score[0].s + 200;
+					contenu_partie[2][contenu_partie[2].length] = contenu_partie[0][i].p 
+					contenu_partie[2][contenu_partie[2].length] = contenu_partie[0][i-1].p 
+					contenu_partie[3][0].s = contenu_partie[3][0].s + 200;
 				}
 			
-			} else if(grille_bot[i][0].n > 7 && grille_bot[i][0].n < 10) {
+			} else if(contenu_partie[0][i].n > 7 && contenu_partie[0][i].n < 10) {
 				
-				if(grille_bot[i][0].n === grille_bot[i+1][0].n && grille_bot[i][0].n === grille_bot[i+2][0].n) {
+				if(contenu_partie[0][i].n === contenu_partie[0][i+1].n && contenu_partie[0][i].n === contenu_partie[0][i+2].n) {
 					plus = true
-				} else if(grille_bot[i][0].n === grille_bot[i-1][0].n && grille_bot[i][0].n === grille_bot[i-2][0].n) {
+				} else if(contenu_partie[0][i].n === contenu_partie[0][i-1].n && contenu_partie[0][i].n === contenu_partie[0][i-2].n) {
 					moins = true;
 				
 
-				} else if(grille_bot[i][0].n === grille_bot[i-1][0].n && grille_bot[i][0].n === grille_bot[i+1][0].n) {
+				} else if(contenu_partie[0][i].n === contenu_partie[0][i-1].n && contenu_partie[0][i].n === contenu_partie[0][i+1].n) {
 					mid = true;
 				}
 				
-				if(grille_bot[i][0].v === grille_bot[i+1][0].v && grille_bot[i][0].v === grille_bot[i+2][0].v && plus === true) {
+				if(contenu_partie[0][i].v === contenu_partie[0][i+1].v && contenu_partie[0][i].v === contenu_partie[0][i+2].v && plus === true) {
 					tir = 2;
-					v_c[v_c.length] = grille_bot[i][0].p 
-					v_c[v_c.length] = grille_bot[i+1][0].p 
-					v_c[v_c.length] = grille_bot[i+2][0].p 
-					li_score[0].s = li_score[0].s + 300;
+					contenu_partie[2][contenu_partie[2].length] = contenu_partie[0][i].p 
+					contenu_partie[2][contenu_partie[2].length] = contenu_partie[0][i+1].p 
+					contenu_partie[2][contenu_partie[2].length] = contenu_partie[0][i+2].p 
+					contenu_partie[3][0].s = contenu_partie[3][0].s + 300;
 				
-				} else if(grille_bot[i][0].v === grille_bot[i-1][0].v && grille_bot[i][0].v === grille_bot[i-2][0].v && moins === true) {
+				} else if(contenu_partie[0][i].v === contenu_partie[0][i-1].v && contenu_partie[0][i].v === contenu_partie[0][i-2].v && moins === true) {
 					tir = 2;
-					v_c[v_c.length] = grille_bot[i][0].p 
-					v_c[v_c.length] = grille_bot[i-1][0].p 
-					v_c[v_c.length] = grille_bot[i-2][0].p 
-					li_score[0].s = li_score[0].s + 300;
+					contenu_partie[2][contenu_partie[2].length] = contenu_partie[0][i].p 
+					contenu_partie[2][contenu_partie[2].length] = contenu_partie[0][i-1].p 
+					contenu_partie[2][contenu_partie[2].length] = contenu_partie[0][i-2].p 
+					contenu_partie[3][0].s = contenu_partie[3][0].s + 300;
 				
-				} else if(grille_bot[i][0].v === grille_bot[i-1][0].v && grille_bot[i][0].v === grille_bot[i+1][0].v && mid === true) {
+				} else if(contenu_partie[0][i].v === contenu_partie[0][i-1].v && contenu_partie[0][i].v === contenu_partie[0][i+1].v && mid === true) {
 					tir = 2;
-					v_c[v_c.length] = grille_bot[i][0].p 
-					v_c[v_c.length] = grille_bot[i+1][0].p 
-					v_c[v_c.length] = grille_bot[i-1][0].p 
-					li_score[0].s = li_score[0].s + 300;
+					contenu_partie[2][contenu_partie[2].length] = contenu_partie[0][i].p 
+					contenu_partie[2][contenu_partie[2].length] = contenu_partie[0][i+1].p 
+					contenu_partie[2][contenu_partie[2].length] = contenu_partie[0][i-1].p 
+					contenu_partie[3][0].s = contenu_partie[3][0].s + 300;
 				
 				}
 		
-			} else if(grille_bot[i][0].n > 9) {
+			} else if(contenu_partie[0][i].n > 9) {
 		
-				if(i === 16 &&grille_bot[i][0].n === grille_bot[i+1][0].n && grille_bot[i][0].n === grille_bot[i+2][0].n && grille_bot[i][0].n === grille_bot[i+3][0].n) {
+				if(i === 16 &&contenu_partie[0][i].n === contenu_partie[0][i+1].n && contenu_partie[0][i].n === contenu_partie[0][i+2].n && contenu_partie[0][i].n === contenu_partie[0][i+3].n) {
 					plus = true
 
-				} else if(i === 19 && grille_bot[i][0].n === grille_bot[i-1][0].n && grille_bot[i][0].n === grille_bot[i-2][0].n && grille_bot[i][0].n === grille_bot[i-3][0].n) {
+				} else if(i === 19 && contenu_partie[0][i].n === contenu_partie[0][i-1].n && contenu_partie[0][i].n === contenu_partie[0][i-2].n && contenu_partie[0][i].n === contenu_partie[0][i-3].n) {
 					moins = true;
 
-				} else if(i === 17 && grille_bot[i][0].n === grille_bot[i-1][0].n && grille_bot[i][0].n === grille_bot[i+1][0].n && grille_bot[i][0].n === grille_bot[i+2][0].n) {
+				} else if(i === 17 && contenu_partie[0][i].n === contenu_partie[0][i-1].n && contenu_partie[0][i].n === contenu_partie[0][i+1].n && contenu_partie[0][i].n === contenu_partie[0][i+2].n) {
 					mid_a = true;
 
-				} else if(i === 18 &&grille_bot[i][0].n === grille_bot[i-1][0].n && grille_bot[i][0].n === grille_bot[i+1][0].n && grille_bot[i][0].n === grille_bot[i-2][0].n) {
+				} else if(i === 18 && contenu_partie[0][i].n === contenu_partie[0][i-1].n && contenu_partie[0][i].n === contenu_partie[0][i+1].n && contenu_partie[0][i].n === contenu_partie[0][i-2].n) {
 					mid_b = true;
 				}
 				
-				if(i === 16 && grille_bot[i][0].v === grille_bot[i+1][0].v && grille_bot[i][0].v === grille_bot[i+2][0].v && grille_bot[i][0].v === grille_bot[i+3][0].v && plus === true) {
+				if(i === 16 && contenu_partie[0][i].v === contenu_partie[0][i+1].v && contenu_partie[0][i].v === contenu_partie[0][i+2].v && contenu_partie[0][i].v === contenu_partie[0][i+3].v && plus === true) {
 					tir = 2;
-					v_c[v_c.length] = grille_bot[i][0].p 
-					v_c[v_c.length] = grille_bot[i+1][0].p 
-					v_c[v_c.length] = grille_bot[i+2][0].p 
-					v_c[v_c.length] = grille_bot[i+3][0].p 
-					li_score[0].s = li_score[0].s + 400;
+					contenu_partie[2][contenu_partie[2].length] = contenu_partie[0][i].p 
+					contenu_partie[2][contenu_partie[2].length] = contenu_partie[0][i+1].p 
+					contenu_partie[2][contenu_partie[2].length] = contenu_partie[0][i+2].p 
+					contenu_partie[2][contenu_partie[2].length] = contenu_partie[0][i+3].p 
+					contenu_partie[3][0].s = contenu_partie[3][0].s + 400;
 				
-				} else if(i === 19 && grille_bot[i][0].v === grille_bot[i-1][0].v && grille_bot[i][0].v === grille_bot[i-2][0].v && grille_bot[i][0].v === grille_bot[i-3][0].v && moins === true) {
+				} else if(i === 19 && contenu_partie[0][i].v === contenu_partie[0][i-1].v && contenu_partie[0][i].v === contenu_partie[0][i-2].v && contenu_partie[0][i].v === contenu_partie[0][i-3].v && moins === true) {
 					tir = 2;
-					v_c[v_c.length] = grille_bot[i][0].p 
-					v_c[v_c.length] = grille_bot[i-1][0].p 
-					v_c[v_c.length] = grille_bot[i-2][0].p 
-					v_c[v_c.length] = grille_bot[i-3][0].p 
-					li_score[0].s = li_score[0].s + 400;
+					contenu_partie[2][contenu_partie[2].length] = contenu_partie[0][i].p 
+					contenu_partie[2][contenu_partie[2].length] = contenu_partie[0][i-1].p 
+					contenu_partie[2][contenu_partie[2].length] = contenu_partie[0][i-2].p 
+					contenu_partie[2][contenu_partie[2].length] = contenu_partie[0][i-3].p 
+					contenu_partie[3][0].s = contenu_partie[3][0].s + 400;
 				
-				} else if(i === 17 && grille_bot[i][0].v === grille_bot[i-1][0].v && grille_bot[i][0].v === grille_bot[i+1][0].v && grille_bot[i][0].v === grille_bot[i+2][0].v && mid_a === true) {
+				} else if(i === 17 && contenu_partie[0][i].v === contenu_partie[0][i-1].v && contenu_partie[0][i].v === contenu_partie[0][i+1].v && contenu_partie[0][i].v === contenu_partie[0][i+2].v && mid_a === true) {
 					tir = 2;
-					v_c[v_c.length] = grille_bot[i][0].p 
-					v_c[v_c.length] = grille_bot[i+1][0].p 
-					v_c[v_c.length] = grille_bot[i-1][0].p 
-					v_c[v_c.length] = grille_bot[i+2][0].p
-					li_score[0].s = li_score[0].s + 400;
+					contenu_partie[2][contenu_partie[2].length] = contenu_partie[0][i].p 
+					contenu_partie[2][contenu_partie[2].length] = contenu_partie[0][i+1].p 
+					contenu_partie[2][contenu_partie[2].length] = contenu_partie[0][i-1].p 
+					contenu_partie[2][contenu_partie[2].length] = contenu_partie[0][i+2].p
+					contenu_partie[3][0].s = contenu_partie[3][0].s + 400;
 				
-				} else if(i === 18 && grille_bot[i][0].v === grille_bot[i-1][0].v && grille_bot[i][0].v === grille_bot[i+1][0].v && grille_bot[i][0].v === grille_bot[i-2][0].v && mid_b === true) {
+				} else if(i === 18 && contenu_partie[0][i].v === contenu_partie[0][i-1].v && contenu_partie[0][i].v === contenu_partie[0][i+1].v && contenu_partie[0][i].v === contenu_partie[0][i-2].v && mid_b === true) {
 					tir = 2;
-					v_c[v_c.length] = grille_bot[i][0].p 
-					v_c[v_c.length] = grille_bot[i+1][0].p 
-					v_c[v_c.length] = grille_bot[i-1][0].p 
-					v_c[v_c.length] = grille_bot[i-2][0].p 
-					li_score[0].s = li_score[0].s + 400;
+					contenu_partie[2][contenu_partie[2].length] = contenu_partie[0][i].p 
+					contenu_partie[2][contenu_partie[2].length] = contenu_partie[0][i+1].p 
+					contenu_partie[2][contenu_partie[2].length] = contenu_partie[0][i-1].p 
+					contenu_partie[2][contenu_partie[2].length] = contenu_partie[0][i-2].p 
+					contenu_partie[3][0].s = contenu_partie[3][0].s + 400;
 				
 				}
 		
 			}
-		} else {
-			tir = 0;
-		}
+		} 
 	}
 
 	// ATTRIBUTION DES MARQUEURS
 	
-	if(tir === 0) {
-		li_score[0].s = li_score[0].s - 50;
+	if(tir === 0 && contenu_partie[4][0].t !== 0) {
+		contenu_partie[3][0].s = contenu_partie[3][0].s - 50;
 		marqueur.tir = "raté"
 	} else if(tir === 1) {
 		marqueur.tir = "touché"
@@ -209,30 +186,20 @@ var jouer = function (req, res, query) {
 		marqueur.tir = "détruit"
 	}
 
+	marqueur.score = contenu_partie[3][0].s;
+	contenu_partie[4][0].t = contenu_partie[4][0].t + 1;
 
-
-	contenu_score = JSON.stringify(li_score);
-	fs.writeFileSync("../json/score.json" , contenu_score , 'utf-8');
-	marqueur.score = li_score[0].s;
-	
-	
-	contenu_t = JSON.stringify(v_t);
-	fs.writeFileSync("../json/memoire_t.json" , contenu_t , 'utf-8');
-	
-	contenu_c = JSON.stringify(v_c);
-	fs.writeFileSync("../json/memoire_c.json" , contenu_c , 'utf-8');
-
-	for(var m = 0 ; m < v_t.length ; m++) {
-		marqueur[v_t[m]] = "<img src='../img/vert.png'></a></td>";
+	for(var m = 0 ; m < contenu_partie[1].length ; m++) {
+		marqueur[contenu_partie[1][m]] = "<img src='../img/vert.png'></a></td>";
 	}
 	
-	for(var n = 0 ; n < v_t.length ; n++) {
-		marqueur[v_c[n]] = "<img src='../img/rouge.png'></a></td>";
+	for(var n = 0 ; n < contenu_partie[2].length ; n++) {
+		marqueur[contenu_partie[2][n]] = "<img src='../img/rouge.png'></a></td>";
 	}
 	
 	
-	contenu_bot = JSON.stringify(grille_bot);
-	fs.writeFileSync("../json/grille_bateau.json",contenu_bot,'utf-8');
+	partie = JSON.stringify(contenu_partie);
+	fs.writeFileSync("../json/etat_partie.json",partie,'utf-8');
 	
 
 	// AFFICHAGE DE LA PAGE DE JEU
