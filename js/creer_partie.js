@@ -5,23 +5,32 @@
 var fs = require("fs");
 require("remedial");
 
-//var creer_partie = function(req,res,query) {
+var creer_partie = function(req,res,query) {
 
-	var requete_J = {};
-	requete_J.pseudo = "test";
+///////////CREATION DU JOUEUR AVEC LE NOM DU JSON/////////////
 
-	
-	
-	
-	
-	
-	fs.writeFileSync("../json/'requete_J.pseudo_memoire_c.json'" , "[]" , 'utf-8');
-	fs.writeFileSync("../json/pseudo_memoire_t.json" , "[]" , 'utf-8');
-	fs.writeFileSync("../json/pseudo_score.json" , "[{'s':'0'}]", 'utf-8');
+var contenu = fs.readFileSync("../json/etat_partie.json");
+
+fs.writeFileSync("etat_partie_" + query.pseudo + ".json",contenu,"UTF-8");
 
 
+///////////////////// PLACEMENT BOT///////////////////////////
+
+
+//////////////////////////////////////////////////////////////
 
 
 
 
-//}
+
+///////////////PLACEMENT JOUEUR/////////////////////////////
+
+
+////////////////////////////////////////////////////////////
+
+
+fs.writeFileSync("etat_partie_" + query.pseudo + ".json",contenu,"UTF-8");
+
+};
+
+module.exports = creer_partie;

@@ -25,6 +25,7 @@ var req_erreur = require("./req_erreur.js");
 var submit_case = require("./submit_case.js");
 var jouer_case = require("./jouer_case.js");
 var req_placement = require("./req_placement.js");
+var creer_partie = require("./creer_partie.js");
 
 
 //-------------------------------------------------------------------------
@@ -69,6 +70,7 @@ var traite_requete = function (req, res) {
 				break;
 			case '/jouer_case':
 				jouer_case(req, res, query);
+				creer_partie(req,res,query);
 				break;
 			case '/img/bga_2.png':
 				res.writeHead(200, {'Content-Type': 'image/png'});
