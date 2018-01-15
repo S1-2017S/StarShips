@@ -72,6 +72,12 @@ var traite_requete = function (req, res) {
 				jouer_case(req, res, query);
 				creer_partie(req,res,query);
 				break;
+			case '/req_gagner':
+				req_gagner(req, res, query,);
+				break;
+			case '/req_perdu':
+				req_perdu(req, res, query,);
+				break;
 			case '/img/bga_2.png':
 				res.writeHead(200, {'Content-Type': 'image/png'});
 				res.write(fs.readFileSync("../img/bga_2.png"));
