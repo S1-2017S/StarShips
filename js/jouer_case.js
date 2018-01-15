@@ -46,7 +46,9 @@ var jouer = function (req, res, query) {
 	pseudo = JSON.parse(contenu_pseudo);
 
 	
-	marqueur.pseudo = pseudo[0].pseudo; //remplacement du pseudo dans la query;
+	//remplacement du pseudo dans la query;
+
+	marqueur.pseudo = pseudo[pseudo.length-1].pseudo; 
 	
 	//MISE EN PLACE DU "VIDE"
 
@@ -55,7 +57,6 @@ var jouer = function (req, res, query) {
 	}
 	
 	//VERIFICATION ECHEC OU REUSSITE DU TIR DU JOUEUR
-	
 	
 	for(var i = 0 ; i < contenu_partie.grille_bot.length ; i++) {
 		if(requete_J.c === contenu_partie.grille_bot[i].p) {
@@ -181,7 +182,6 @@ var jouer = function (req, res, query) {
 
 	if(contenu_partie.touche[0] !== undefined && contenu_partie.touche[contenu_partie.touche.length-1] !== requete_J.c) {
 	
-	console.log("test");
 	var plus = false;              
 	var moins = false;             
 	var mid = false;               
@@ -189,6 +189,7 @@ var jouer = function (req, res, query) {
 	var mid_b = false;             
 	
 	contenu_partie.score.s = contenu_partie.score.s - 50;
+	contenu_partie.tir_j[contenu_partie.tir_j.length] = requete_J.c;
 	
 	//VERIFICATION ECHEC OU REUSSITE DU TIR DU BOT
 
@@ -335,6 +336,11 @@ var jouer = function (req, res, query) {
 		marqueur[contenu_partie.tir_random[b]+100] = "<img src='../img/gris.png'></a></td>";
 	}
 	
+	for(var c = 0 ; c < contenu_partie.tir_j.length ; c++) {
+		marqueur[contenu_partie.tir_j[c]] = "<img src='../img/gris.png'></a></td>";
+	}
+	
+
 	for(var m2 = 0 ; m2 < contenu_partie.touche_bot.length ; m2++) {
 		marqueur[contenu_partie.touche_bot[m2]+100] = "<img src='../img/vert.png'></a></td>";
 	}
@@ -348,6 +354,37 @@ var jouer = function (req, res, query) {
 	fs.writeFileSync("../json/etat_partie.json",partie,'utf-8');
 	
 	
+	
+	page = fs.readFileSync('../html/joueur_actif.html', 'utf-8');
+	page = page.supplant(marqueur);
+
+	//AFFICHAGE PAGE PERDU
+
+	var perdu = 0;
+
+	for(var d2 = 0 ; d2 < 20 ; d2++) {
+		if(contenu_partie.grille_joueur[d2].v === 1) {
+			perdu++
+		}
+	}
+
+	if(perdu === 20) {
+		console.log("perdu");
+	}
+
+	//	AFFICHAGE DE LA PAGE GAGNÉ
+
+	var gagne = 0;
+
+	for(var d2 = 0 ; d2 < 20 ; d2++) {
+		if(contenu_partie.grille_bot[d2].v === 1) {
+			gagne++
+		}
+	}
+
+	if(gagne === 20) {
+		console.log("gagné");
+	}
 
 	// AFFICHAGE DE LA PAGE DE JEU
 	
@@ -356,8 +393,6 @@ var jouer = function (req, res, query) {
 	}
 	*/
 		
-	page = fs.readFileSync('../html/joueur_actif.html', 'utf-8');
-	page = page.supplant(marqueur);
 	
 	res.writeHead(200, {'Content-Type': 'text/html'});
 	res.write(page);
