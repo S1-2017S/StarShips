@@ -123,6 +123,16 @@ var traite_requete = function (req, res) {
 				res.write(fs.readFileSync("../img/rouge.png"));
 				res.end();
 				break;
+			case '/img/image_gagner.png':
+				res.writeHead(200, {'Content-Type': 'image/png'});
+				res.write(fs.readFileSync("../img/image_gagner.png"));
+				res.end();
+				break;
+			case '/img/image_perdu.png':
+				res.writeHead(200, {'Content-Type': 'image/png'});
+				res.write(fs.readFileSync("../img/image_perdu.png"));
+				res.end();
+				break;
 			case '/img/jaune.png':
 				res.writeHead(200, {'Content-Type': 'image/png'});
 				res.write(fs.readFileSync("../img/jaune.png"));
