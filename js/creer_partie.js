@@ -1,4 +1,8 @@
-// MODULE GÉRANT LA CRÉATION DE LA PARTIE
+//===============MODULE GÉRANT LA CRÉATION DE LA PARTIE========================//
+//  Traitement de "creer_partie"
+//  Version : 16/01/2018
+//  Auteur  : L'équipe de Starships
+//=============================================================================//
 
 "use strict";
 

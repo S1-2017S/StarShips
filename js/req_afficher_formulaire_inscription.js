@@ -1,7 +1,7 @@
 //=========================================================================
 // Traitement de "req_afficher_formulaire_inscription"
-// Auteur : P. Thiré
-// Version : 09/10/2015
+// Auteur : L'équipe de Starships
+// Version : 16/01/2018
 //=========================================================================
 "use strict";
 
